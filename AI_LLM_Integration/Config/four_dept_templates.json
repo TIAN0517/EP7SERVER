@@ -1,0 +1,277 @@
+{
+  "templates": {
+    "four_dept_character_generation": {
+      "id": "four_dept_char_gen",
+      "name": "四部門角色生成模板",
+      "description": "為四大部門（劍術、弓術、格鬥、氣功）生成AI角色",
+      "academies": ["聖門", "懸岩", "鳳凰"],
+      "departments": ["劍術", "弓術", "格鬥", "氣功"],
+      "preferred_models": ["llama3:latest", "deepseek-coder:latest"],
+      "template": "你是一個《RAN Online》自動AI生成器。請根據三大學院（聖門、懸岩、鳳凰）與四大部門（劍術、弓術、格鬥、氣功）隨機產生{count}名AI角色，每個角色須有：學院、部門、姓名（6字以內）、性格特徵、戰鬥風格、專屬台詞。輸出格式：JSON陣列。",
+      "parameters": {
+        "count": {
+          "type": "number",
+          "min": 1,
+          "max": 20,
+          "default": 5
+        },
+        "academy": {
+          "type": "select",
+          "options": ["聖門", "懸岩", "鳳凰"],
+          "default": "聖門"
+        },
+        "department": {
+          "type": "select", 
+          "options": ["劍術", "弓術", "格鬥", "氣功"],
+          "default": "劍術"
+        }
+      }
+    },
+    "sword_tactics": {
+      "id": "sword_tactics",
+      "name": "劍術系戰術模板",
+      "description": "為劍術系AI生成戰術指令",
+      "departments": ["劍術"],
+      "preferred_models": ["phi3:latest", "gemma:latest"],
+      "template": "你是劍術系AI，擅長近戰突擊和單體爆發。戰鬥風格：快速接近、連擊、致命一擊。請根據{combat_situation}制定劍術系專屬戰術。技能特色：衝鋒斬擊、連環劍技、破甲攻擊。",
+      "parameters": {
+        "combat_situation": {
+          "type": "text",
+          "default": "面對3名敵方遠程職業的圍攻"
+        },
+        "enemy_count": {
+          "type": "number",
+          "min": 1,
+          "max": 10,
+          "default": 3
+        }
+      }
+    },
+    "archer_tactics": {
+      "id": "archer_tactics", 
+      "name": "弓術系戰術模板",
+      "description": "為弓術系AI生成戰術指令",
+      "departments": ["弓術"],
+      "preferred_models": ["phi3:latest", "gemma:latest"],
+      "template": "你是弓術系AI，擅長遠程狙擊和風箏戰術。戰鬥風格：保持距離、精準射擊、控制節奏。請根據{combat_situation}制定弓術系專屬戰術。技能特色：精準射擊、範圍箭雨、減速陷阱。",
+      "parameters": {
+        "combat_situation": {
+          "type": "text",
+          "default": "敵方近戰職業試圖接近"
+        },
+        "terrain": {
+          "type": "select",
+          "options": ["平原", "森林", "山地", "城市", "橋樑"],
+          "default": "平原"
+        }
+      }
+    },
+    "fighter_tactics": {
+      "id": "fighter_tactics",
+      "name": "格鬥系戰術模板", 
+      "description": "為格鬥系AI生成戰術指令",
+      "departments": ["格鬥"],
+      "preferred_models": ["phi3:latest", "gemma:latest"],
+      "template": "你是格鬥系AI，擅長近身格鬥和控制技能。戰鬥風格：貼身纏鬥、摔投技、反擊。請根據{combat_situation}制定格鬥系專屬戰術。技能特色：擒拿技、反擊拳、破招式。",
+      "parameters": {
+        "combat_situation": {
+          "type": "text",
+          "default": "需要控制敵方核心目標"
+        },
+        "target_type": {
+          "type": "select",
+          "options": ["法師", "弓手", "治療師", "重甲戰士"],
+          "default": "法師"
+        }
+      }
+    },
+    "qigong_tactics": {
+      "id": "qigong_tactics",
+      "name": "氣功系戰術模板",
+      "description": "為氣功系AI生成治療支援指令", 
+      "departments": ["氣功"],
+      "preferred_models": ["phi3:latest", "gemma:latest"],
+      "template": "你是氣功系AI，擅長治療支援和狀態管理。戰鬥風格：團隊治療、BUFF管理、狀態淨化。請根據{combat_situation}制定氣功系專屬戰術。技能特色：群體治療、狀態增強、驅散詛咒。",
+      "parameters": {
+        "combat_situation": {
+          "type": "text",
+          "default": "友軍多人受傷需要緊急治療"
+        },
+        "team_status": {
+          "type": "text",
+          "default": "劍術系HP30%，弓術系MP不足，格鬥系被控制"
+        }
+      }
+    },
+    "pk_taunting": {
+      "id": "pk_taunting",
+      "name": "PK互動嗆聲模板",
+      "description": "為四部門AI生成PK嗆聲回應",
+      "departments": ["劍術", "弓術", "格鬥", "氣功"],
+      "preferred_models": ["mistral:latest", "qwen2:latest"],
+      "template": "你是{academy}/{department}AI，在PK中遇到敵方挑釁時，請根據你的學院和職業特性，以充滿個性的繁體中文嗆聲回應。僅包含：劍術、弓術、格鬥、氣功四部門。不得與現實語言重複，需貼近RAN Online風格。敵方挑釁：{enemy_taunt}",
+      "parameters": {
+        "academy": {
+          "type": "select",
+          "options": ["聖門", "懸岩", "鳳凰"],
+          "default": "聖門"
+        },
+        "department": {
+          "type": "select",
+          "options": ["劍術", "弓術", "格鬥", "氣功"],
+          "default": "劍術"
+        },
+        "enemy_taunt": {
+          "type": "text",
+          "default": "你們學院的人都很弱！"
+        }
+      }
+    },
+    "tactical_leadership": {
+      "id": "tactical_leadership",
+      "name": "戰術指揮模板",
+      "description": "為AI隊長生成戰術指揮指令",
+      "departments": ["劍術", "弓術", "格鬥", "氣功"],
+      "preferred_models": ["llama3:latest", "phi3:latest"],
+      "template": "你是RAN Online裡的AI隊長，帶領{academy}分隊進行PVP活動。請根據當前局勢（如敵人數量：{enemy_count}、地形：{terrain}、剩餘資源：{resources}）下達最優行動指令（攻擊、防守、集火、撤退等），並以隊長語氣直接下達命令給隊員。隊員職業僅包含：劍術、弓術、格鬥、氣功。繁體中文輸出。",
+      "parameters": {
+        "academy": {
+          "type": "select",
+          "options": ["聖門", "懸岩", "鳳凰"],
+          "default": "聖門"
+        },
+        "enemy_count": {
+          "type": "number",
+          "min": 1,
+          "max": 15,
+          "default": 5
+        },
+        "terrain": {
+          "type": "select",
+          "options": ["平原", "森林", "山地", "城市", "橋樑", "峽谷"],
+          "default": "平原"
+        },
+        "resources": {
+          "type": "select",
+          "options": ["充足", "一般", "不足", "緊急"],
+          "default": "一般"
+        }
+      }
+    },
+    "skill_automation": {
+      "id": "skill_automation",
+      "name": "技能自動決策模板",
+      "description": "為AI角色生成技能使用決策",
+      "departments": ["劍術", "弓術", "格鬥", "氣功"],
+      "preferred_models": ["deepseek-coder:latest", "llama3:latest"],
+      "template": "你是AI{department}（如劍術/氣功），根據當前遊戲狀態（敵人血量：{enemy_hp}、友方狀態：{ally_status}、BUFF剩餘時間：{buff_time}），動態選擇最適合的技能，並用專業簡短語句說明原因和預期效果。",
+      "parameters": {
+        "department": {
+          "type": "select",
+          "options": ["劍術", "弓術", "格鬥", "氣功"],
+          "default": "劍術"
+        },
+        "enemy_hp": {
+          "type": "text",
+          "default": "60%"
+        },
+        "ally_status": {
+          "type": "text",
+          "default": "健康"
+        },
+        "buff_time": {
+          "type": "text",
+          "default": "15秒"
+        }
+      }
+    },
+    "emergency_retreat": {
+      "id": "emergency_retreat",
+      "name": "緊急撤退模板",
+      "description": "為AI隊長生成緊急撤退指令",
+      "departments": ["劍術", "弓術", "格鬥", "氣功"],
+      "preferred_models": ["phi3:latest", "llama3:latest"],
+      "template": "當AI判斷團隊處於不利狀態時，自動呼叫撤退策略，並用『隊長』語氣對所有隊員下達有層次的撤退/重組口令。當前危機狀況：{crisis_status}",
+      "parameters": {
+        "crisis_status": {
+          "type": "text",
+          "default": "敵方數量優勢3:1，我方多人重傷"
+        }
+      }
+    },
+    "formation_adjustment": {
+      "id": "formation_adjustment",
+      "name": "陣形調整模板",
+      "description": "為四部門團隊生成陣形調整指令",
+      "departments": ["劍術", "弓術", "格鬥", "氣功"],
+      "preferred_models": ["phi3:latest", "gemma:latest"],
+      "template": "根據戰場情況自動調整隊形。當前敵我雙方位置：{positions}，地形優勢：{terrain_advantage}，請選擇最適合的陣型並說明調整理由。考慮四大部門：劍術（前排）、弓術（後排）、格鬥（側翼）、氣功（中央）的定位。",
+      "parameters": {
+        "positions": {
+          "type": "text",
+          "default": "我方集中，敵方分散"
+        },
+        "terrain_advantage": {
+          "type": "select",
+          "options": ["高地", "掩體", "開闊地", "狹窄通道", "無優勢"],
+          "default": "高地"
+        }
+      }
+    }
+  },
+  "academy_specialties": {
+    "聖門": {
+      "name": "聖門學院",
+      "theme": "神聖系",
+      "characteristics": "注重防守和治療",
+      "color_scheme": "#FFD700",
+      "departments": {
+        "劍術": "神聖劍術，結合防禦與攻擊",
+        "弓術": "神聖箭矢，具有治療友軍效果",
+        "格鬥": "聖拳術，以防護和反擊為主",
+        "氣功": "神聖治療，最強的團隊治療技能"
+      }
+    },
+    "懸岩": {
+      "name": "懸岩學院",
+      "theme": "元素系",
+      "characteristics": "精通法術和控制",
+      "color_scheme": "#9370DB",
+      "departments": {
+        "劍術": "元素劍術，附加冰火雷電效果",
+        "弓術": "魔法箭術，可發射各種元素箭矢",
+        "格鬥": "元素拳法，利用元素力量增強",
+        "氣功": "元素操控，擅長群體控制和元素BUFF"
+      }
+    },
+    "鳳凰": {
+      "name": "鳳凰學院",
+      "theme": "戰鬥系",
+      "characteristics": "專精攻擊和爆發",
+      "color_scheme": "#FF4500",
+      "departments": {
+        "劍術": "烈焰劍技，高爆發攻擊和連擊",
+        "弓術": "爆裂箭術，追求高傷害和穿透力",
+        "格鬥": "烈火拳法，最強的近戰爆發技能",
+        "氣功": "戰鬥支援，提供攻擊BUFF和爆發增強"
+      }
+    }
+  },
+  "response_formats": {
+    "json_character": {
+      "template": "{\n  \"character\": {\n    \"name\": \"{name}\",\n    \"academy\": \"{academy}\",\n    \"department\": \"{department}\",\n    \"personality\": \"{personality}\",\n    \"combat_style\": \"{combat_style}\",\n    \"signature_quote\": \"{quote}\",\n    \"stats\": {\n      \"attack\": {attack},\n      \"defense\": {defense},\n      \"speed\": {speed},\n      \"magic\": {magic}\n    }\n  }\n}"
+    },
+    "tactical_command": {
+      "template": "【{academy}隊長】{command_type}：{specific_orders}\n目標：{target}\n執行部門：{departments}\n預期效果：{expected_result}"
+    },
+    "skill_decision": {
+      "template": "【{department}系】使用技能：{skill_name}\n原因：{reason}\n目標：{target}\n預期傷害/效果：{expected_outcome}"
+    }
+  },
+  "quality_filters": {
+    "department_validation": "確保所有生成內容僅包含：劍術、弓術、格鬥、氣功四大部門",
+    "academy_validation": "確保所有學院內容僅包含：聖門、懸岩、鳳凰三大學院", 
+    "language_consistency": "所有回應必須使用繁體中文，符合台灣遊戲風格",
+    "content_appropriateness": "確保所有內容適合遊戲環境，避免現實世界政治或敏感話題"
+  }
+}

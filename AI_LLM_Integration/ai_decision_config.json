@@ -1,0 +1,265 @@
+{
+  "aiDecisionConfig": {
+    "version": "4.0.0",
+    "description": "AI決策核心配置文件 - 支援多種決策策略和熱更新",
+    "lastModified": "2025-06-14T10:00:00Z",
+    
+    "globalSettings": {
+      "enableDebugMode": false,
+      "enableLearning": true,
+      "enablePerformanceMonitoring": true,
+      "maxDecisionHistorySize": 1000,
+      "autosaveInterval": 300,
+      "logLevel": "INFO"
+    },
+    
+    "strategySettings": {
+      "defaultStrategy": "HYBRID",
+      "allowStrategyChange": true,
+      "strategyChangeFrequency": 10.0,
+      "adaptiveStrategySelection": true
+    },
+    
+    "utilitySystem": {
+      "enabled": true,
+      "combatWeight": 0.4,
+      "survivalWeight": 0.4,
+      "supportWeight": 0.2,
+      "utilityThreshold": 0.5,
+      "normalizeUtilities": true,
+      "weightDecayFactor": 0.95,
+      "functions": {
+        "health": {
+          "type": "sigmoid",
+          "parameters": [0.5, 10.0]
+        },
+        "threat": {
+          "type": "exponential",
+          "parameters": [0.1, 2.0]
+        },
+        "opportunity": {
+          "type": "linear",
+          "parameters": [1.0, 0.0]
+        }
+      }
+    },
+    
+    "behaviorTree": {
+      "enabled": true,
+      "rootNode": "RootSelector",
+      "maxDepth": 10,
+      "enableConditionalNodes": true,
+      "enableParallelNodes": true,
+      "tickFrequency": 100,
+      "nodes": {
+        "RootSelector": {
+          "type": "Selector",
+          "children": ["SurvivalSequence", "CombatSequence", "ExploreSequence"]
+        },
+        "SurvivalSequence": {
+          "type": "Sequence",
+          "children": ["CheckHealthLow", "UseHealingItem"]
+        },
+        "CheckHealthLow": {
+          "type": "Condition",
+          "condition": "health < 30"
+        },
+        "UseHealingItem": {
+          "type": "Action",
+          "action": "USE_ITEM",
+          "parameters": ["healing_potion"]
+        },
+        "CombatSequence": {
+          "type": "Sequence",
+          "children": ["CheckEnemyNearby", "AttackEnemy"]
+        },
+        "CheckEnemyNearby": {
+          "type": "Condition",
+          "condition": "nearbyEnemies.size() > 0"
+        },
+        "AttackEnemy": {
+          "type": "Action",
+          "action": "ATTACK",
+          "parameters": ["closest_enemy"]
+        },
+        "ExploreSequence": {
+          "type": "Sequence",
+          "children": ["CheckNoThreats", "MoveToRandomLocation"]
+        },
+        "CheckNoThreats": {
+          "type": "Condition",
+          "condition": "threatLevel < 20"
+        },
+        "MoveToRandomLocation": {
+          "type": "Action",
+          "action": "MOVE",
+          "parameters": ["random_position"]
+        }
+      }
+    },
+    
+    "qLearning": {
+      "enabled": true,
+      "learningRate": 0.1,
+      "discountFactor": 0.95,
+      "explorationRate": 0.1,
+      "explorationDecay": 0.995,
+      "minExplorationRate": 0.01,
+      "experienceReplaySize": 10000,
+      "batchSize": 32,
+      "targetUpdateFrequency": 100,
+      "stateDiscretization": {
+        "healthBins": 10,
+        "manaBins": 10,
+        "threatBins": 5,
+        "distanceBins": 8
+      }
+    },
+    
+    "hierarchicalPlanner": {
+      "enabled": true,
+      "planningHorizon": 10,
+      "replanningFrequency": 5,
+      "enableGoalStack": true,
+      "maxGoalStackSize": 5,
+      "strategicLevel": {
+        "goals": ["SURVIVE", "COMBAT", "EXPLORE", "SUPPORT"],
+        "priorities": [1.0, 0.8, 0.6, 0.7],
+        "planningInterval": 1000
+      },
+      "tacticalLevel": {
+        "actions": ["ATTACK", "DEFEND", "MOVE", "USE_SKILL"],
+        "planningInterval": 500
+      },
+      "operationalLevel": {
+        "actions": ["BASIC_ATTACK", "MOVE_STEP", "USE_ITEM"],
+        "planningInterval": 100
+      }
+    },
+    
+    "environmentPerception": {
+      "enabled": true,
+      "perceptionRadius": 50.0,
+      "threatDetectionRange": 30.0,
+      "allyDetectionRange": 40.0,
+      "itemDetectionRange": 20.0,
+      "updateFrequency": 50,
+      "enablePrediction": true,
+      "predictionHorizon": 3.0,
+      "filters": {
+        "enableNoiseReduction": true,
+        "enableOutlierDetection": true,
+        "enableTemporalSmoothing": true
+      }
+    },
+    
+    "learningEvolution": {
+      "enabled": true,
+      "adaptationRate": 0.05,
+      "experienceThreshold": 1000,
+      "enableSkillLearning": true,
+      "enableStrategyLearning": true,
+      "enableParameterTuning": true,
+      "evolutionarySettings": {
+        "populationSize": 10,
+        "mutationRate": 0.1,
+        "crossoverRate": 0.7,
+        "eliteSize": 2
+      }
+    },
+    
+    "performanceSettings": {
+      "maxDecisionTime": 10.0,
+      "enableTimeoutProtection": true,
+      "enableMemoryOptimization": true,
+      "enableGarbageCollection": true,
+      "statisticsInterval": 1000,
+      "profileLevel": "BASIC"
+    },
+    
+    "hybridStrategy": {
+      "enabled": true,
+      "combineStrategies": ["UTILITY_BASED", "BEHAVIOR_TREE", "Q_LEARNING"],
+      "strategyWeights": [0.4, 0.3, 0.3],
+      "decisionFusion": "WEIGHTED_AVERAGE",
+      "confidenceThreshold": 0.7,
+      "enableVoting": true
+    }
+  },
+  
+  "playerProfiles": {
+    "aggressive": {
+      "strategyPreference": "UTILITY_BASED",
+      "combatWeight": 0.7,
+      "survivalWeight": 0.2,
+      "supportWeight": 0.1,
+      "riskTolerance": 0.8
+    },
+    "defensive": {
+      "strategyPreference": "BEHAVIOR_TREE",
+      "combatWeight": 0.2,
+      "survivalWeight": 0.7,
+      "supportWeight": 0.1,
+      "riskTolerance": 0.2
+    },
+    "support": {
+      "strategyPreference": "HIERARCHICAL",
+      "combatWeight": 0.1,
+      "survivalWeight": 0.3,
+      "supportWeight": 0.6,
+      "riskTolerance": 0.4
+    },
+    "balanced": {
+      "strategyPreference": "HYBRID",
+      "combatWeight": 0.33,
+      "survivalWeight": 0.33,
+      "supportWeight": 0.34,
+      "riskTolerance": 0.5
+    }
+  },
+  
+  "actionConfig": {
+    "MOVE": {
+      "priority": 1,
+      "cooldown": 0.0,
+      "energyCost": 0,
+      "successRate": 0.95
+    },
+    "ATTACK": {
+      "priority": 8,
+      "cooldown": 1.0,
+      "energyCost": 5,
+      "successRate": 0.75
+    },
+    "USE_SKILL": {
+      "priority": 7,
+      "cooldown": 3.0,
+      "energyCost": 15,
+      "successRate": 0.80
+    },
+    "USE_ITEM": {
+      "priority": 6,
+      "cooldown": 2.0,
+      "energyCost": 0,
+      "successRate": 0.90
+    },
+    "INTERACT": {
+      "priority": 3,
+      "cooldown": 1.0,
+      "energyCost": 0,
+      "successRate": 0.85
+    },
+    "WAIT": {
+      "priority": 1,
+      "cooldown": 0.0,
+      "energyCost": 0,
+      "successRate": 1.0
+    },
+    "FLEE": {
+      "priority": 9,
+      "cooldown": 0.5,
+      "energyCost": 10,
+      "successRate": 0.70
+    }
+  }
+}

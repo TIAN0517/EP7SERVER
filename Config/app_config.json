@@ -1,0 +1,212 @@
+{
+    "application": {
+        "name": "RANOnline EP7 AI Simulation System",
+        "version": "2.0.0",
+        "description": "Ultimate C++ + Qt6 AI Management System",
+        "developer": "Jy技术团队",
+        "website": "https://jytech.team",
+        "buildDate": "2025-06-14",
+        "environment": "production"
+    },
+    "ui": {
+        "theme": "cyberpunk",
+        "language": "zh-CN",
+        "windowSettings": {
+            "defaultWidth": 1400,
+            "defaultHeight": 900,
+            "minimumWidth": 1200,
+            "minimumHeight": 800,
+            "resizable": true,
+            "maximizable": true,
+            "centerOnScreen": true,
+            "rememberPosition": true,
+            "rememberSize": true
+        },
+        "styling": {
+            "borderless": true,
+            "customTitleBar": true,
+            "glowEffects": true,
+            "animations": true,
+            "transparency": true,
+            "highDpi": true
+        },
+        "systemTray": {
+            "enabled": true,
+            "minimizeToTray": true,
+            "closeToTray": false,
+            "startMinimized": false,
+            "showNotifications": true
+        }
+    },
+    "frontend": {
+        "autoStart": true,
+        "autoConnect": true,
+        "refreshInterval": 1000,
+        "maxLogEntries": 10000,
+        "aiList": {
+            "pageSize": 50,
+            "autoRefresh": true,
+            "refreshInterval": 2000
+        },
+        "statusMonitor": {
+            "updateInterval": 1000,
+            "chartDataPoints": 60,
+            "performanceAlerts": true,
+            "cpuWarningThreshold": 80,
+            "memoryWarningThreshold": 85
+        },
+        "controls": {
+            "batchOperationConfirm": true,
+            "deleteConfirmation": true,
+            "autoScrollLogs": true,
+            "soundEffects": false
+        }
+    },
+    "backend": {
+        "autoStart": true,
+        "processName": "ai_backend_engine",
+        "workingDirectory": "./",
+        "startupDelay": 2000,
+        "shutdownTimeout": 10000,
+        "daemon": false,
+        "consoleMode": false
+    },
+    "communication": {
+        "protocol": "tcp",
+        "frontend": {
+            "host": "127.0.0.1",
+            "port": 9901,
+            "timeout": 30000,
+            "retryCount": 5,
+            "retryDelay": 5000
+        },
+        "backend": {
+            "host": "127.0.0.1",
+            "port": 9902,
+            "timeout": 30000,
+            "maxConnections": 10
+        },
+        "namedPipe": {
+            "name": "\\\\.\\pipe\\RAN_AI_Engine",
+            "bufferSize": 65536,
+            "timeout": 30000
+        },
+        "messages": {
+            "compression": false,
+            "encryption": false,
+            "heartbeat": true,
+            "heartbeatInterval": 30000,
+            "maxMessageSize": 1048576
+        }
+    },
+    "logging": {
+        "enabled": true,
+        "level": "INFO",
+        "console": true,
+        "file": true,
+        "maxFileSize": "100MB",
+        "maxFiles": 10,
+        "directory": "./logs",
+        "filename": "ranonline_ai_%Y%M%D.log",
+        "format": "[%timestamp%] [%level%] [%category%] %message%",
+        "categories": {
+            "Application": "INFO",
+            "UI": "DEBUG",
+            "Network": "INFO",
+            "AI": "INFO",
+            "Database": "INFO",
+            "Performance": "WARN"
+        }
+    },
+    "performance": {
+        "monitoring": {
+            "enabled": true,
+            "interval": 1000,
+            "cpuMonitoring": true,
+            "memoryMonitoring": true,
+            "networkMonitoring": true,
+            "diskMonitoring": false
+        },
+        "optimization": {
+            "threadPoolOptimization": true,
+            "memoryPooling": true,
+            "cacheOptimization": true,
+            "renderOptimization": true
+        },
+        "limits": {
+            "maxMemoryUsage": "4GB",
+            "maxCpuUsage": 90,
+            "maxThreads": 100,
+            "maxConnections": 1000
+        }
+    },
+    "security": {
+        "authentication": {
+            "enabled": false,
+            "type": "none",
+            "sessionTimeout": 3600
+        },
+        "authorization": {
+            "enabled": false,
+            "defaultRole": "admin"
+        },
+        "encryption": {
+            "communication": false,
+            "storage": false,
+            "logs": false
+        }
+    },
+    "features": {
+        "aiManagement": {
+            "enabled": true,
+            "batchOperations": true,
+            "realTimeStatus": true,
+            "performanceTracking": true
+        },
+        "multiServer": {
+            "enabled": true,
+            "loadBalancing": true,
+            "crossServerOperations": true
+        },
+        "realIP": {
+            "enabled": true,
+            "proxyDetection": true,
+            "ipValidation": true
+        },
+        "antiLag": {
+            "enabled": true,
+            "adaptiveDelays": true,
+            "connectionOptimization": true,
+            "resourceThrottling": true
+        },
+        "statistics": {
+            "enabled": true,
+            "realTime": true,
+            "historical": true,
+            "export": true
+        }
+    },
+    "paths": {
+        "config": "./Config",
+        "logs": "./logs",
+        "data": "./data",
+        "cache": "./cache",
+        "temp": "./temp",
+        "resources": "./Resources",
+        "plugins": "./plugins",
+        "exports": "./exports"
+    },
+    "updates": {
+        "checkForUpdates": false,
+        "autoUpdate": false,
+        "updateServer": "",
+        "updateInterval": 86400
+    },
+    "debug": {
+        "enabled": false,
+        "verboseLogging": false,
+        "dumpOnCrash": true,
+        "performanceProfiling": false,
+        "memoryLeakDetection": false
+    }
+}

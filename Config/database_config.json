@@ -1,0 +1,138 @@
+{
+    "database": {
+        "type": "SQLServer",
+        "version": "2022",
+        "connectionPool": {
+            "size": 10,
+            "maxSize": 50,
+            "minSize": 2,
+            "timeout": 30000,
+            "idleTimeout": 300000
+        }
+    },
+    "connection": {
+        "serverName": "localhost\\SQLEXPRESS",
+        "databaseName": "RAN_AI_Database",
+        "port": 1433,
+        "trustedConnection": true,
+        "username": "",
+        "password": "",
+        "connectionString": "",
+        "options": {
+            "connectionTimeout": 30,
+            "loginTimeout": 10,
+            "commandTimeout": 30,
+            "multipleActiveResultSets": true,
+            "trustServerCertificate": true,
+            "encrypt": false
+        }
+    },
+    "synchronization": {
+        "enabled": true,
+        "interval": 5000,
+        "batchSize": 100,
+        "retryCount": 3,
+        "retryDelay": 1000,
+        "autoReconnect": true,
+        "heartbeatInterval": 60000
+    },
+    "tables": {
+        "aiPlayers": {
+            "name": "RAN_AI_Players",
+            "primaryKey": "id",
+            "indexes": [
+                "ai_id",
+                "server_id",
+                "school",
+                "status",
+                "created_time"
+            ]
+        },
+        "aiLogs": {
+            "name": "RAN_AI_Logs",
+            "primaryKey": "id",
+            "indexes": [
+                "ai_id",
+                "timestamp",
+                "operation"
+            ]
+        },
+        "serverStatus": {
+            "name": "RAN_Server_Status",
+            "primaryKey": "server_id",
+            "indexes": [
+                "last_update"
+            ]
+        },
+        "performanceMetrics": {
+            "name": "RAN_Performance_Metrics",
+            "primaryKey": "id",
+            "indexes": [
+                "timestamp",
+                "metric_type"
+            ]
+        }
+    },
+    "queries": {
+        "timeout": 10000,
+        "batchSize": 1000,
+        "maxRetries": 3,
+        "optimization": {
+            "enableQueryPlan": true,
+            "useIndexHints": true,
+            "parameterSniffing": false
+        }
+    },
+    "maintenance": {
+        "autoCleanup": {
+            "enabled": true,
+            "logRetentionDays": 30,
+            "metricsRetentionDays": 7,
+            "scheduleTime": "02:00"
+        },
+        "indexMaintenance": {
+            "enabled": true,
+            "rebuildThreshold": 30,
+            "reorganizeThreshold": 10,
+            "scheduleTime": "03:00"
+        },
+        "statistics": {
+            "autoUpdate": true,
+            "fullScan": false,
+            "samplePercent": 50
+        }
+    },
+    "security": {
+        "encryption": {
+            "connectionString": false,
+            "dataAtRest": false,
+            "backups": false
+        },
+        "access": {
+            "minimumPermissions": true,
+            "auditChanges": true,
+            "logConnections": true
+        }
+    },
+    "backup": {
+        "enabled": false,
+        "schedule": "daily",
+        "time": "01:00",
+        "retention": 7,
+        "compression": true,
+        "verification": true
+    },
+    "monitoring": {
+        "enabled": true,
+        "logLevel": "INFO",
+        "performanceCounters": true,
+        "connectionTracking": true,
+        "queryProfiling": false,
+        "alerts": {
+            "connectionFailures": true,
+            "longRunningQueries": true,
+            "deadlocks": true,
+            "blockingProcesses": true
+        }
+    }
+}

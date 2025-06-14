@@ -1,0 +1,33 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/icons">
+        <!-- LLM模型圖標 -->
+        <file>Resources/icons/gemma.png</file>
+        <file>Resources/icons/qwen2.png</file>
+        <file>Resources/icons/deepseek.png</file>
+        <file>Resources/icons/mistral.png</file>
+        <file>Resources/icons/phi3.png</file>
+        <file>Resources/icons/llama3.png</file>
+        
+        <!-- 部門圖標 -->
+        <file>Resources/icons/sword.png</file>
+        <file>Resources/icons/bow.png</file>
+        <file>Resources/icons/fist.png</file>
+        <file>Resources/icons/qi.png</file>
+        
+        <!-- 應用程序圖標 -->
+        <file>Resources/icons/ai_brain.png.placeholder</file>
+        <file>Resources/icons/ran_logo.png.placeholder</file>
+    </qresource>    
+    <qresource prefix="/themes">
+        <!-- 主題背景文件將在運行時可選加載 -->
+    </qresource>
+    
+    <qresource prefix="/fonts">
+        <!-- 字體資源文件將在運行時可選加載 -->
+    </qresource>
+    
+    <qresource prefix="/translations">
+        <file>Resources/translations/zh_TW.qm</file>
+    </qresource>
+</RCC>

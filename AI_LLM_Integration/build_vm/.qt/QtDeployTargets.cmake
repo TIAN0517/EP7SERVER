@@ -1,0 +1,6 @@
+set(__QT_DEPLOY_TARGET_ai_llm_integration_standard_FILE C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/build_vm/ai_llm_integration.exe)
+set(__QT_DEPLOY_TARGET_ai_llm_integration_standard_TYPE EXECUTABLE)
+set(__QT_DEPLOY_TARGET_ai_llm_integration_standard_RUNTIME_DLLS C:/Qt/6.9.1/mingw_64/bin/Qt6Network.dll;C:/Qt/6.9.1/mingw_64/bin/Qt6OpenGLWidgets.dll;C:/Qt/6.9.1/mingw_64/bin/Qt6Widgets.dll;C:/Qt/6.9.1/mingw_64/bin/Qt6OpenGL.dll;C:/Qt/6.9.1/mingw_64/bin/Qt6Gui.dll;C:/Qt/6.9.1/mingw_64/bin/Qt6Core.dll)
+set(__QT_DEPLOY_TARGET_ai_llm_integration_vm_FILE C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/build_vm/ai_llm_integration_vm.exe)
+set(__QT_DEPLOY_TARGET_ai_llm_integration_vm_TYPE EXECUTABLE)
+set(__QT_DEPLOY_TARGET_ai_llm_integration_vm_RUNTIME_DLLS C:/Qt/6.9.1/mingw_64/bin/Qt6Widgets.dll;C:/Qt/6.9.1/mingw_64/bin/Qt6Gui.dll;C:/Qt/6.9.1/mingw_64/bin/Qt6Network.dll;C:/Qt/6.9.1/mingw_64/bin/Qt6Core.dll)

@@ -1,0 +1,48 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/">
+        <!-- 样式表 -->
+        <file>styles/cyberpunk.qss</file>
+        
+        <!-- 图标 -->
+        <file>icons/logo.png</file>
+        <file>icons/minimize.png</file>
+        <file>icons/maximize.png</file>
+        <file>icons/close.png</file>
+        <file>icons/ai_icon.png</file>
+        <file>icons/status_icon.png</file>
+        <file>icons/log_icon.png</file>
+        
+        <!-- 系统托盘图标 -->
+        <file>icons/tray_icon.png</file>
+        <file>icons/tray_icon_active.png</file>
+        
+        <!-- 学校图标 -->
+        <file>icons/school_extreme.png</file>
+        <file>icons/school_holy.png</file>
+        <file>icons/school_fire.png</file>
+        
+        <!-- 状态图标 -->
+        <file>icons/status_online.png</file>
+        <file>icons/status_offline.png</file>
+        <file>icons/status_starting.png</file>
+        <file>icons/status_stopping.png</file>
+        
+        <!-- 按钮图标 -->
+        <file>icons/play.png</file>
+        <file>icons/stop.png</file>
+        <file>icons/delete.png</file>
+        <file>icons/settings.png</file>
+        <file>icons/refresh.png</file>
+        <file>icons/export.png</file>
+        <file>icons/search.png</file>
+        
+        <!-- 其他资源 -->
+        <file>images/background.png</file>
+        <file>images/glow_effect.png</file>
+        
+        <!-- 字体文件 -->
+        <file>fonts/consolas.ttf</file>
+        <file>fonts/orbitron.ttf</file>
+    </qresource>
+</RCC>

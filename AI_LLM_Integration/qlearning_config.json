@@ -1,0 +1,363 @@
+{
+  "qLearningConfig": {
+    "version": "4.0.0",
+    "description": "Q-Learning強化學習配置 - AI自主學習系統",
+    "lastModified": "2025-06-14T10:00:00Z",
+    
+    "algorithmSettings": {
+      "learningRate": 0.1,
+      "discountFactor": 0.95,
+      "explorationRate": 0.1,
+      "explorationDecay": 0.995,
+      "minExplorationRate": 0.01,
+      "maxExplorationRate": 1.0,
+      "enableAdaptiveExploration": true,
+      "explorationStrategy": "epsilon_greedy"
+    },
+    
+    "networkArchitecture": {
+      "type": "deep_q_network",
+      "hiddenLayers": [256, 128, 64],
+      "activationFunction": "relu",
+      "outputActivation": "linear",
+      "optimizer": "adam",
+      "learningRateSchedule": "exponential_decay",
+      "dropoutRate": 0.2,
+      "batchNormalization": true
+    },
+    
+    "experienceReplay": {
+      "enabled": true,
+      "bufferSize": 10000,
+      "batchSize": 32,
+      "minBufferSize": 1000,
+      "prioritizedReplay": true,
+      "priorityAlpha": 0.6,
+      "priorityBeta": 0.4,
+      "priorityBetaIncrement": 0.001
+    },
+    
+    "targetNetwork": {
+      "enabled": true,
+      "updateFrequency": 100,
+      "softUpdate": true,
+      "softUpdateTau": 0.005,
+      "enableDoubleQ": true
+    },
+    
+    "stateRepresentation": {
+      "normalization": {
+        "enabled": true,
+        "method": "min_max",
+        "range": [-1.0, 1.0]
+      },
+      "featureExtraction": {
+        "playerState": {
+          "health": {
+            "type": "continuous",
+            "range": [0, 100],
+            "normalization": true
+          },
+          "mana": {
+            "type": "continuous", 
+            "range": [0, 100],
+            "normalization": true
+          },
+          "level": {
+            "type": "discrete",
+            "range": [1, 100],
+            "encoding": "one_hot"
+          },
+          "position": {
+            "type": "continuous",
+            "dimensions": 3,
+            "normalization": true
+          }
+        },
+        "environmentState": {
+          "threatLevel": {
+            "type": "continuous",
+            "range": [0, 100],
+            "normalization": true
+          },
+          "nearbyEnemiesCount": {
+            "type": "discrete",
+            "range": [0, 10],
+            "encoding": "binary"
+          },
+          "nearbyAlliesCount": {
+            "type": "discrete",
+            "range": [0, 10], 
+            "encoding": "binary"
+          },
+          "nearbyItemsCount": {
+            "type": "discrete",
+            "range": [0, 20],
+            "encoding": "binary"
+          }
+        },
+        "relativePositions": {
+          "closestEnemyDistance": {
+            "type": "continuous",
+            "range": [0, 100],
+            "normalization": true
+          },
+          "closestAllyDistance": {
+            "type": "continuous",
+            "range": [0, 100],
+            "normalization": true
+          },
+          "closestItemDistance": {
+            "type": "continuous",
+            "range": [0, 50],
+            "normalization": true
+          }
+        }
+      }
+    },
+    
+    "actionSpace": {
+      "type": "discrete",
+      "actions": [
+        {
+          "name": "MOVE_NORTH",
+          "id": 0,
+          "parameters": ["direction"],
+          "preconditions": ["canMove"],
+          "reward_weight": 1.0
+        },
+        {
+          "name": "MOVE_SOUTH", 
+          "id": 1,
+          "parameters": ["direction"],
+          "preconditions": ["canMove"],
+          "reward_weight": 1.0
+        },
+        {
+          "name": "MOVE_EAST",
+          "id": 2,
+          "parameters": ["direction"],
+          "preconditions": ["canMove"],
+          "reward_weight": 1.0
+        },
+        {
+          "name": "MOVE_WEST",
+          "id": 3,
+          "parameters": ["direction"],
+          "preconditions": ["canMove"],
+          "reward_weight": 1.0
+        },
+        {
+          "name": "ATTACK_CLOSEST_ENEMY",
+          "id": 4,
+          "parameters": ["target"],
+          "preconditions": ["hasEnemyInRange"],
+          "reward_weight": 3.0
+        },
+        {
+          "name": "USE_PRIMARY_SKILL",
+          "id": 5,
+          "parameters": ["skill", "target"],
+          "preconditions": ["hasEnoughMana", "skillReady"],
+          "reward_weight": 2.5
+        },
+        {
+          "name": "USE_SECONDARY_SKILL",
+          "id": 6,
+          "parameters": ["skill", "target"],
+          "preconditions": ["hasEnoughMana", "skillReady"],
+          "reward_weight": 2.0
+        },
+        {
+          "name": "USE_HEALING_ITEM",
+          "id": 7,
+          "parameters": ["item"],
+          "preconditions": ["hasHealingItem", "healthBelowThreshold"],
+          "reward_weight": 4.0
+        },
+        {
+          "name": "USE_MANA_ITEM",
+          "id": 8,
+          "parameters": ["item"],
+          "preconditions": ["hasManaItem", "manaBelowThreshold"],
+          "reward_weight": 3.0
+        },
+        {
+          "name": "COLLECT_ITEM",
+          "id": 9,
+          "parameters": ["item"],
+          "preconditions": ["hasItemNearby"],
+          "reward_weight": 2.0
+        },
+        {
+          "name": "FLEE",
+          "id": 10,
+          "parameters": ["direction"],
+          "preconditions": ["inDanger"],
+          "reward_weight": 3.5
+        },
+        {
+          "name": "WAIT",
+          "id": 11,
+          "parameters": [],
+          "preconditions": [],
+          "reward_weight": 0.1
+        }
+      ]
+    },
+    
+    "rewardSystem": {
+      "shaping": {
+        "enabled": true,
+        "method": "potential_based",
+        "gamma": 0.99
+      },
+      "components": {
+        "survival": {
+          "weight": 0.4,
+          "healthBonus": 10.0,
+          "deathPenalty": -100.0,
+          "healingReward": 5.0,
+          "damageReceived": -2.0
+        },
+        "combat": {
+          "weight": 0.3,
+          "killReward": 50.0,
+          "damageDealt": 1.0,
+          "skillUseBonus": 2.0,
+          "missedAttackPenalty": -1.0
+        },
+        "exploration": {
+          "weight": 0.2,
+          "newAreaBonus": 15.0,
+          "itemCollectionReward": 10.0,
+          "movementReward": 0.5,
+          "stagnationPenalty": -0.5
+        },
+        "efficiency": {
+          "weight": 0.1,
+          "timeBonus": 1.0,
+          "actionEfficiencyBonus": 2.0,
+          "wasteActionPenalty": -1.0
+        }
+      },
+      "bonusRewards": {
+        "streakKills": {
+          "enabled": true,
+          "multiplier": 1.5,
+          "maxStreak": 10
+        },
+        "perfectHealth": {
+          "enabled": true,
+          "bonus": 20.0,
+          "threshold": 0.95
+        },
+        "rapidLevelUp": {
+          "enabled": true,
+          "bonus": 100.0,
+          "timeThreshold": 300
+        }
+      }
+    },
+    
+    "trainingSchedule": {
+      "phases": [
+        {
+          "name": "exploration",
+          "duration": 10000,
+          "explorationRate": 0.9,
+          "learningRate": 0.01,
+          "focus": "state_space_coverage"
+        },
+        {
+          "name": "learning",
+          "duration": 50000,
+          "explorationRate": 0.3,
+          "learningRate": 0.1,
+          "focus": "policy_improvement"
+        },
+        {
+          "name": "refinement",
+          "duration": 20000,
+          "explorationRate": 0.1,
+          "learningRate": 0.05,
+          "focus": "policy_optimization"
+        },
+        {
+          "name": "deployment",
+          "duration": -1,
+          "explorationRate": 0.05,
+          "learningRate": 0.01,
+          "focus": "performance_maintenance"
+        }
+      ],
+      "adaptiveScheduling": {
+        "enabled": true,
+        "performanceThreshold": 0.8,
+        "plateauDetection": true,
+        "plateauPatience": 5000
+      }
+    },
+    
+    "evaluationMetrics": {
+      "performance": {
+        "survivalRate": {
+          "target": 0.85,
+          "weight": 0.4
+        },
+        "killDeathRatio": {
+          "target": 2.0,
+          "weight": 0.3
+        },
+        "explorationCoverage": {
+          "target": 0.8,
+          "weight": 0.2
+        },
+        "actionEfficiency": {
+          "target": 0.75,
+          "weight": 0.1
+        }
+      },
+      "stability": {
+        "lossConvergence": {
+          "enabled": true,
+          "window": 1000,
+          "threshold": 0.01
+        },
+        "qValueStability": {
+          "enabled": true,
+          "window": 500,
+          "threshold": 0.05
+        }
+      }
+    },
+    
+    "modelPersistence": {
+      "saveFrequency": 1000,
+      "savePath": "./models/q_learning/",
+      "keepBestModels": 5,
+      "modelFormat": "pytorch",
+      "compressionEnabled": true,
+      "backupEnabled": true,
+      "versionControl": true
+    },
+    
+    "distributedLearning": {
+      "enabled": false,
+      "workerCount": 4,
+      "parameterServer": "localhost:6666",
+      "communicationProtocol": "grpc",
+      "aggregationMethod": "federated_averaging",
+      "syncFrequency": 100
+    },
+    
+    "debugging": {
+      "enabled": true,
+      "visualizeQValues": false,
+      "logActionsFrequency": 100,
+      "saveReplayBuffer": true,
+      "tensorboardLogging": true,
+      "qValuePlotting": true
+    }
+  }
+}

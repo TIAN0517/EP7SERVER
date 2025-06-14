@@ -1,0 +1,45 @@
+cmake_minimum_required(VERSION 3.22)
+project(ai_llm_simple_test VERSION 1.0.0 LANGUAGES CXX)
+
+# 設置C++標準
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Qt6設置
+set(CMAKE_AUTOMOC ON)
+
+# 查找Qt6
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
+
+# 編譯器特定設置
+if(MSVC)
+    add_compile_options(/utf-8 /Zc:__cplusplus /W3 /permissive- /FS)
+    add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+endif()
+
+# 源文件
+set(SOURCES SimpleTest.cpp)
+
+# 創建可執行文件
+add_executable(ai_llm_simple_test ${SOURCES})
+
+# 設置編譯選項
+target_compile_options(ai_llm_simple_test PRIVATE 
+    $<$<CXX_COMPILER_ID:MSVC>:/FS>
+)
+
+# 鏈接庫
+target_link_libraries(ai_llm_simple_test 
+    Qt6::Core 
+    Qt6::Widgets
+)
+
+# 輸出配置信息
+message(STATUS "")
+message(STATUS "🧪 Simple Test Build Configuration")
+message(STATUS "===================================")
+message(STATUS "📋 Test Version: ${PROJECT_VERSION}")
+message(STATUS "🎯 Qt6 Version: ${Qt6_VERSION}")
+message(STATUS "🔧 Build Type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "===================================")
+message(STATUS "")

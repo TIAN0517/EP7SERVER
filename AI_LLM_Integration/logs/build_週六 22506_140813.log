@@ -1,0 +1,8 @@
+[週六 2025/06/14 14:08:14.00] 開始構建 RANOnline AI Ultimate Portable Edition 
+[週六 2025/06/14 14:08:14.00] 專案目錄: C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\ 
+[週六 2025/06/14 14:08:14.03] Qt6路徑: "C:\Qt\6.9.1\mingw_64" 
+[週六 2025/06/14 14:08:14.03] MinGW路徑: "C:\Qt\Tools\mingw1310_64" 
+[週六 2025/06/14 14:08:14.29] 主程序: C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\main_ultimate_portable.cpp 
+[週六 2025/06/14 14:08:14.29] CMake配置: C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\CMakeLists_Ultimate_Portable.txt 
+CMake Error: The source directory "C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration" " does not exist.
+Specify --help for usage, or press the help button on the CMake GUI.

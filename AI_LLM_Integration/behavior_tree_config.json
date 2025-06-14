@@ -1,0 +1,486 @@
+{
+  "behaviorTreeConfig": {
+    "version": "4.0.0",
+    "description": "AI行為樹配置 - 定義複雜的AI行為邏輯",
+    "lastModified": "2025-06-14T10:00:00Z",
+    
+    "globalSettings": {
+      "maxExecutionTime": 50.0,
+      "enableDebugging": false,
+      "enableProfiling": true,
+      "maxNodeDepth": 15,
+      "defaultTickInterval": 100
+    },
+    
+    "behaviorTrees": {
+      "combatTree": {
+        "description": "戰鬥行為樹 - 處理戰鬥相關決策",
+        "rootNode": "CombatRootSelector",
+        "priority": 10,
+        "nodes": {
+          "CombatRootSelector": {
+            "type": "Selector",
+            "description": "戰鬥根選擇器",
+            "children": [
+              "EmergencyFleeSequence",
+              "AggressiveCombatSequence",
+              "DefensiveCombatSequence",
+              "SupportCombatSequence"
+            ]
+          },
+          
+          "EmergencyFleeSequence": {
+            "type": "Sequence",
+            "description": "緊急逃跑序列",
+            "children": [
+              "CheckCriticalHealth",
+              "CheckMultipleEnemies",
+              "ExecuteFlee"
+            ]
+          },
+          "CheckCriticalHealth": {
+            "type": "Condition",
+            "description": "檢查生命值是否危險",
+            "condition": "health < 15 || (health < 30 && threatLevel > 70)"
+          },
+          "CheckMultipleEnemies": {
+            "type": "Condition",
+            "description": "檢查是否被多個敵人包圍",
+            "condition": "nearbyEnemies.size() >= 3"
+          },
+          "ExecuteFlee": {
+            "type": "Action",
+            "description": "執行逃跑行為",
+            "action": "FLEE",
+            "parameters": ["safe_direction"]
+          },
+          
+          "AggressiveCombatSequence": {
+            "type": "Sequence",
+            "description": "攻擊性戰鬥序列",
+            "children": [
+              "CheckHealthAbove50",
+              "CheckEnemyInRange",
+              "SelectAttackType"
+            ]
+          },
+          "CheckHealthAbove50": {
+            "type": "Condition",
+            "description": "檢查生命值是否充足",
+            "condition": "health > 50"
+          },
+          "CheckEnemyInRange": {
+            "type": "Condition",
+            "description": "檢查攻擊範圍內是否有敵人",
+            "condition": "nearbyEnemies.size() > 0 && getClosestEnemyDistance() < 20"
+          },
+          "SelectAttackType": {
+            "type": "Selector",
+            "description": "選擇攻擊類型",
+            "children": [
+              "UseSpecialSkill",
+              "UseBasicAttack"
+            ]
+          },
+          "UseSpecialSkill": {
+            "type": "Sequence",
+            "description": "使用特殊技能",
+            "children": [
+              "CheckManaAbove30",
+              "CheckSkillCooldown",
+              "ExecuteSkill"
+            ]
+          },
+          "CheckManaAbove30": {
+            "type": "Condition",
+            "description": "檢查法力值是否充足",
+            "condition": "mana > 30"
+          },
+          "CheckSkillCooldown": {
+            "type": "Condition",
+            "description": "檢查技能冷卻",
+            "condition": "isSkillReady('primary_skill')"
+          },
+          "ExecuteSkill": {
+            "type": "Action",
+            "description": "執行技能攻擊",
+            "action": "USE_SKILL",
+            "parameters": ["primary_skill", "closest_enemy"]
+          },
+          "UseBasicAttack": {
+            "type": "Action",
+            "description": "使用基本攻擊",
+            "action": "ATTACK",
+            "parameters": ["closest_enemy"]
+          },
+          
+          "DefensiveCombatSequence": {
+            "type": "Sequence",
+            "description": "防守性戰鬥序列",
+            "children": [
+              "CheckHealthBelow70",
+              "DefensiveActions"
+            ]
+          },
+          "CheckHealthBelow70": {
+            "type": "Condition",
+            "description": "檢查生命值是否需要防守",
+            "condition": "health < 70"
+          },
+          "DefensiveActions": {
+            "type": "Selector",
+            "description": "防守行為選擇",
+            "children": [
+              "UseHealingItem",
+              "UseDefensiveSkill",
+              "MoveToSafePosition"
+            ]
+          },
+          "UseHealingItem": {
+            "type": "Sequence",
+            "description": "使用治療物品",
+            "children": [
+              "CheckHasHealingItem",
+              "ExecuteHealing"
+            ]
+          },
+          "CheckHasHealingItem": {
+            "type": "Condition",
+            "description": "檢查是否有治療物品",
+            "condition": "hasItem('healing_potion')"
+          },
+          "ExecuteHealing": {
+            "type": "Action",
+            "description": "執行治療",
+            "action": "USE_ITEM",
+            "parameters": ["healing_potion"]
+          },
+          "UseDefensiveSkill": {
+            "type": "Sequence",
+            "description": "使用防守技能",
+            "children": [
+              "CheckDefensiveSkillReady",
+              "ExecuteDefensiveSkill"
+            ]
+          },
+          "CheckDefensiveSkillReady": {
+            "type": "Condition",
+            "description": "檢查防守技能是否可用",
+            "condition": "isSkillReady('defensive_skill') && mana > 20"
+          },
+          "ExecuteDefensiveSkill": {
+            "type": "Action",
+            "description": "執行防守技能",
+            "action": "USE_SKILL",
+            "parameters": ["defensive_skill", "self"]
+          },
+          "MoveToSafePosition": {
+            "type": "Action",
+            "description": "移動到安全位置",
+            "action": "MOVE",
+            "parameters": ["safe_position"]
+          },
+          
+          "SupportCombatSequence": {
+            "type": "Sequence",
+            "description": "支援戰鬥序列",
+            "children": [
+              "CheckAlliesNearby",
+              "SupportActions"
+            ]
+          },
+          "CheckAlliesNearby": {
+            "type": "Condition",
+            "description": "檢查附近是否有盟友",
+            "condition": "nearbyAllies.size() > 0"
+          },
+          "SupportActions": {
+            "type": "Selector",
+            "description": "支援行為選擇",
+            "children": [
+              "HealWeakAlly",
+              "BuffAlly",
+              "AttackAllyTarget"
+            ]
+          },
+          "HealWeakAlly": {
+            "type": "Sequence",
+            "description": "治療虛弱盟友",
+            "children": [
+              "CheckWeakAllyExists",
+              "CheckHealingSkillReady",
+              "ExecuteAllyHealing"
+            ]
+          },
+          "CheckWeakAllyExists": {
+            "type": "Condition",
+            "description": "檢查是否有虛弱盟友",
+            "condition": "getWeakestAllyHealthRatio() < 0.4"
+          },
+          "CheckHealingSkillReady": {
+            "type": "Condition",
+            "description": "檢查治療技能是否可用",
+            "condition": "isSkillReady('healing_skill') && mana > 25"
+          },
+          "ExecuteAllyHealing": {
+            "type": "Action",
+            "description": "執行盟友治療",
+            "action": "USE_SKILL",
+            "parameters": ["healing_skill", "weakest_ally"]
+          },
+          "BuffAlly": {
+            "type": "Sequence",
+            "description": "為盟友施加增益",
+            "children": [
+              "CheckBuffSkillReady",
+              "ExecuteBuffSkill"
+            ]
+          },
+          "CheckBuffSkillReady": {
+            "type": "Condition",
+            "description": "檢查增益技能是否可用",
+            "condition": "isSkillReady('buff_skill') && mana > 15"
+          },
+          "ExecuteBuffSkill": {
+            "type": "Action",
+            "description": "執行增益技能",
+            "action": "USE_SKILL",
+            "parameters": ["buff_skill", "strongest_ally"]
+          },
+          "AttackAllyTarget": {
+            "type": "Sequence",
+            "description": "攻擊盟友的目標",
+            "children": [
+              "CheckAllyHasTarget",
+              "ExecuteCoordinatedAttack"
+            ]
+          },
+          "CheckAllyHasTarget": {
+            "type": "Condition",
+            "description": "檢查盟友是否有目標",
+            "condition": "getAllyTarget() != null"
+          },
+          "ExecuteCoordinatedAttack": {
+            "type": "Action",
+            "description": "執行協同攻擊",
+            "action": "ATTACK",
+            "parameters": ["ally_target"]
+          }
+        }
+      },
+      
+      "explorationTree": {
+        "description": "探索行為樹 - 處理探索和資源收集",
+        "rootNode": "ExplorationRootSelector",
+        "priority": 5,
+        "nodes": {
+          "ExplorationRootSelector": {
+            "type": "Selector",
+            "description": "探索根選擇器",
+            "children": [
+              "ItemCollectionSequence",
+              "AreaExplorationSequence",
+              "RandomMovementSequence"
+            ]
+          },
+          
+          "ItemCollectionSequence": {
+            "type": "Sequence",
+            "description": "物品收集序列",
+            "children": [
+              "CheckItemsNearby",
+              "MoveToClosestItem",
+              "CollectItem"
+            ]
+          },
+          "CheckItemsNearby": {
+            "type": "Condition",
+            "description": "檢查附近是否有物品",
+            "condition": "nearbyItems.size() > 0"
+          },
+          "MoveToClosestItem": {
+            "type": "Action",
+            "description": "移動到最近的物品",
+            "action": "MOVE",
+            "parameters": ["closest_item_position"]
+          },
+          "CollectItem": {
+            "type": "Action",
+            "description": "收集物品",
+            "action": "INTERACT",
+            "parameters": ["closest_item"]
+          },
+          
+          "AreaExplorationSequence": {
+            "type": "Sequence",
+            "description": "區域探索序列",
+            "children": [
+              "CheckUnexploredAreas",
+              "MoveToUnexploredArea"
+            ]
+          },
+          "CheckUnexploredAreas": {
+            "type": "Condition",
+            "description": "檢查是否有未探索區域",
+            "condition": "hasUnexploredAreas()"
+          },
+          "MoveToUnexploredArea": {
+            "type": "Action",
+            "description": "移動到未探索區域",
+            "action": "MOVE",
+            "parameters": ["unexplored_area"]
+          },
+          
+          "RandomMovementSequence": {
+            "type": "Sequence",
+            "description": "隨機移動序列",
+            "children": [
+              "CheckSafeToMove",
+              "ExecuteRandomMovement"
+            ]
+          },
+          "CheckSafeToMove": {
+            "type": "Condition",
+            "description": "檢查移動是否安全",
+            "condition": "threatLevel < 30"
+          },
+          "ExecuteRandomMovement": {
+            "type": "Action",
+            "description": "執行隨機移動",
+            "action": "MOVE",
+            "parameters": ["random_safe_position"]
+          }
+        }
+      },
+      
+      "socialTree": {
+        "description": "社交行為樹 - 處理玩家互動和團隊合作",
+        "rootNode": "SocialRootSelector",
+        "priority": 3,
+        "nodes": {
+          "SocialRootSelector": {
+            "type": "Selector",
+            "description": "社交根選擇器",
+            "children": [
+              "TeamFormationSequence",
+              "TeamCoordinationSequence",
+              "SoloActionSequence"
+            ]
+          },
+          
+          "TeamFormationSequence": {
+            "type": "Sequence",
+            "description": "組隊序列",
+            "children": [
+              "CheckNearbyPlayers",
+              "CheckTeamCompatibility",
+              "InitiateTeamInvite"
+            ]
+          },
+          "CheckNearbyPlayers": {
+            "type": "Condition",
+            "description": "檢查附近是否有其他玩家",
+            "condition": "nearbyPlayers.size() > 0 && !isInTeam()"
+          },
+          "CheckTeamCompatibility": {
+            "type": "Condition",
+            "description": "檢查組隊兼容性",
+            "condition": "getTeamCompatibilityScore() > 0.6"
+          },
+          "InitiateTeamInvite": {
+            "type": "Action",
+            "description": "發起組隊邀請",
+            "action": "INTERACT",
+            "parameters": ["team_invite", "compatible_player"]
+          },
+          
+          "TeamCoordinationSequence": {
+            "type": "Sequence",
+            "description": "團隊協調序列",
+            "children": [
+              "CheckInTeam",
+              "TeamActions"
+            ]
+          },
+          "CheckInTeam": {
+            "type": "Condition",
+            "description": "檢查是否在團隊中",
+            "condition": "isInTeam()"
+          },
+          "TeamActions": {
+            "type": "Selector",
+            "description": "團隊行為選擇",
+            "children": [
+              "FollowTeamLeader",
+              "SupportTeamMembers",
+              "CoordinatedCombat"
+            ]
+          },
+          "FollowTeamLeader": {
+            "type": "Sequence",
+            "description": "跟隨隊長",
+            "children": [
+              "CheckNotTeamLeader",
+              "CheckLeaderDistance",
+              "MoveTowardsLeader"
+            ]
+          },
+          "CheckNotTeamLeader": {
+            "type": "Condition",
+            "description": "檢查不是隊長",
+            "condition": "!isTeamLeader()"
+          },
+          "CheckLeaderDistance": {
+            "type": "Condition",
+            "description": "檢查與隊長的距離",
+            "condition": "getDistanceToLeader() > 15"
+          },
+          "MoveTowardsLeader": {
+            "type": "Action",
+            "description": "移動到隊長附近",
+            "action": "MOVE",
+            "parameters": ["leader_position"]
+          },
+          "SupportTeamMembers": {
+            "type": "Action",
+            "description": "支援團隊成員",
+            "action": "USE_SKILL",
+            "parameters": ["support_skill", "weakest_team_member"]
+          },
+          "CoordinatedCombat": {
+            "type": "Action",
+            "description": "協同戰鬥",
+            "action": "ATTACK",
+            "parameters": ["team_target"]
+          },
+          
+          "SoloActionSequence": {
+            "type": "Action",
+            "description": "單獨行動序列",
+            "action": "WAIT",
+            "parameters": []
+          }
+        }
+      }
+    },
+    
+    "conditionFunctions": {
+      "health": "return perception.health;",
+      "mana": "return perception.mana;",
+      "threatLevel": "return perception.threatLevel;",
+      "nearbyEnemies": "return perception.nearbyEnemies;",
+      "nearbyAllies": "return perception.nearbyAllies;",
+      "nearbyItems": "return perception.nearbyItems;",
+      "getClosestEnemyDistance": "return getClosestEntity(perception.nearbyEnemies).distance;",
+      "hasItem": "return inventory.hasItem(itemType);",
+      "isSkillReady": "return skills.isReady(skillName);",
+      "getWeakestAllyHealthRatio": "return getWeakestEntity(perception.nearbyAllies).healthRatio;",
+      "getAllyTarget": "return team.getCurrentTarget();",
+      "hasUnexploredAreas": "return exploration.hasUnexploredAreas();",
+      "isInTeam": "return team.isInTeam();",
+      "isTeamLeader": "return team.isLeader();",
+      "getDistanceToLeader": "return team.getDistanceToLeader();",
+      "getTeamCompatibilityScore": "return social.getCompatibilityScore();"
+    }
+  }
+}

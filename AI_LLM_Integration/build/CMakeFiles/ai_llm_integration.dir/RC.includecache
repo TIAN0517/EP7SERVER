@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/build/app_resources.rc
+windows.h
+-
+

@@ -1,0 +1,263 @@
+cmake_minimum_required(VERSION 3.22)
+project(ai_llm_integration VERSION 1.0.0 LANGUAGES CXX)
+
+# 設置C++標準
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# 強制使用MinGW編譯器設置
+if(WIN32)
+    # 確保使用MinGW工具鏈
+    if(NOT CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        message(FATAL_ERROR "❌ 此專案需要MinGW編譯器。請確保PATH中包含MinGW的bin目錄。")
+    endif()
+    
+    # MinGW特定設置
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0")
+    
+    # 移除所有MSVC相關設置
+    add_compile_definitions(WIN32_LEAN_AND_MEAN)
+    
+    message(STATUS "🔧 MinGW編譯器配置完成")
+endif()
+
+# 便攜式構建選項
+option(BUILD_PORTABLE "Build portable application with dependency bundling" ON)
+option(DEPLOY_QT "Deploy Qt libraries automatically" ON)
+
+# MinGW便攜式構建設置
+if(BUILD_PORTABLE)
+    # MinGW靜態鏈接運行時庫
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
+    
+    # 為最終部署階段保留動態Qt鏈接
+    message(STATUS "🚀 便攜式構建模式：將在部署階段包含Qt動態庫")
+endif()
+
+# Qt6設置
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+# 明確指定Qt路徑
+set(Qt6_DIR "C:/Qt/6.9.1/mingw_64/lib/cmake/Qt6")
+set(CMAKE_PREFIX_PATH "C:/Qt/6.9.1/mingw_64")
+
+# 查找Qt6核心模組
+find_package(Qt6 REQUIRED COMPONENTS 
+    Core 
+    Widgets 
+    Network
+    Gui
+)
+
+# 條件性查找額外模組
+find_package(Qt6 QUIET COMPONENTS WebSockets Concurrent)
+
+if(Qt6WebSockets_FOUND)
+    message(STATUS "✅ Qt6WebSockets found, WebSocket features enabled")
+    set(HAVE_WEBSOCKETS ON)
+    add_compile_definitions(HAVE_WEBSOCKETS)
+else()
+    message(WARNING "⚠️ Qt6WebSockets not found, WebSocket features will be disabled")
+    set(HAVE_WEBSOCKETS OFF)
+endif()
+
+if(Qt6Concurrent_FOUND)
+    message(STATUS "✅ Qt6Concurrent found")
+endif()
+
+# MinGW編譯器特定設置
+if(MINGW)
+    # UTF-8編碼支持
+    add_compile_options(-finput-charset=UTF-8 -fexec-charset=UTF-8)
+    
+    # 優化設置
+    if(CMAKE_BUILD_TYPE STREQUAL "Release")
+        add_compile_options(-O3 -march=native)
+    endif()
+    
+    # 移除mingw32特定警告
+    add_compile_options(-Wno-unknown-pragmas)
+    
+    message(STATUS "🔧 MinGW編譯選項配置完成")
+endif()
+
+# 源文件
+set(SOURCES
+    main.cpp
+    FramelessWindow.cpp
+    CyberProgressBar.cpp
+    LLMMainWindow.cpp
+    LLMRequestItem_New.cpp
+    OllamaLLMManager_Fixed.cpp
+    
+    # AI管控系統模組
+    AIPlayerGenerator.cpp
+    AIDecisionEngine.cpp
+    AIManagementWidget.cpp
+)
+
+# 頭文件
+set(HEADERS
+    AcademyTheme.h
+    FramelessWindow.h
+    CyberProgressBar.h
+    LLMRequestItem_New.h
+    LLMMainWindow.h
+    OllamaLLMManager.h
+    
+    # AI管控系統模組
+    AIPlayerGenerator.h
+    AIDecisionEngine.h
+    AIManagementWidget.h
+)
+
+# 創建可執行文件
+add_executable(ai_llm_integration ${SOURCES} ${HEADERS})
+
+# MinGW特定的鏈接庫
+target_link_libraries(ai_llm_integration 
+    Qt6::Core 
+    Qt6::Widgets 
+    Qt6::Network
+    Qt6::Gui
+)
+
+# 條件性鏈接額外模組
+if(Qt6Concurrent_FOUND)
+    target_link_libraries(ai_llm_integration Qt6::Concurrent)
+    message(STATUS "✅ Linking Qt6::Concurrent")
+endif()
+
+if(HAVE_WEBSOCKETS)
+    target_link_libraries(ai_llm_integration Qt6::WebSockets)
+    message(STATUS "✅ Linking Qt6::WebSockets")
+endif()
+
+# Windows特定系統庫
+if(WIN32)
+    target_link_libraries(ai_llm_integration 
+        ws2_32 
+        winmm 
+        imm32 
+        version
+        ole32
+        oleaut32
+        uuid
+        advapi32
+        shell32
+        user32
+        kernel32
+        gdi32
+        comdlg32
+        winspool
+    )
+endif()
+
+# 設置可執行文件屬性
+set_target_properties(ai_llm_integration PROPERTIES
+    WIN32_EXECUTABLE TRUE
+    OUTPUT_NAME "ai_llm_integration"
+)
+
+# 輸出配置信息
+message(STATUS "")
+message(STATUS "🤖 AI LLM Integration Module Configuration")
+message(STATUS "============================================")
+message(STATUS "📋 Module Version: ${PROJECT_VERSION}")
+message(STATUS "🎯 Qt6 Version: ${Qt6_VERSION}")
+message(STATUS "🔧 Build Type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "🔨 Compiler: ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+message(STATUS "📁 Source Directory: ${CMAKE_SOURCE_DIR}")
+message(STATUS "📦 Binary Directory: ${CMAKE_BINARY_DIR}")
+message(STATUS "🌍 Qt Path: ${CMAKE_PREFIX_PATH}")
+if(HAVE_WEBSOCKETS)
+    message(STATUS "🔌 WebSocket Support: Enabled")
+else()
+    message(STATUS "🔌 WebSocket Support: Disabled")
+endif()
+message(STATUS "============================================")
+message(STATUS "")
+
+# 部署配置（僅Windows）
+if(DEPLOY_QT AND WIN32)
+    # 查找windeployqt工具
+    find_program(WINDEPLOYQT_EXECUTABLE 
+        windeployqt 
+        HINTS "C:/Qt/6.9.1/mingw_64/bin"
+        PATHS "C:/Qt/6.9.1/mingw_64/bin"
+    )
+    
+    if(WINDEPLOYQT_EXECUTABLE)
+        message(STATUS "🚀 Found windeployqt: ${WINDEPLOYQT_EXECUTABLE}")
+        
+        # 創建部署目錄
+        set(DEPLOY_DIR "${CMAKE_BINARY_DIR}/deploy")
+        
+        # 部署命令
+        add_custom_target(deploy
+            COMMAND ${CMAKE_COMMAND} -E make_directory ${DEPLOY_DIR}
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ai_llm_integration> ${DEPLOY_DIR}/
+            COMMAND ${WINDEPLOYQT_EXECUTABLE} 
+                --release 
+                --no-translations 
+                --no-system-d3d-compiler 
+                --no-opengl-sw 
+                --no-quick-import
+                --force
+                ${DEPLOY_DIR}/ai_llm_integration.exe
+            DEPENDS ai_llm_integration
+            COMMENT "🚀 Deploying Qt libraries for portable distribution"
+        )
+        
+        # 創建便攜式打包
+        add_custom_target(portable
+            COMMAND ${CMAKE_COMMAND} -E make_directory ${DEPLOY_DIR}/portable
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${DEPLOY_DIR} ${DEPLOY_DIR}/portable
+            # 複製MinGW運行時庫
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+                "C:/Qt/6.9.1/mingw_64/bin/libgcc_s_seh-1.dll" 
+                ${DEPLOY_DIR}/portable/
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+                "C:/Qt/6.9.1/mingw_64/bin/libstdc++-6.dll" 
+                ${DEPLOY_DIR}/portable/
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+                "C:/Qt/6.9.1/mingw_64/bin/libwinpthread-1.dll" 
+                ${DEPLOY_DIR}/portable/
+            DEPENDS deploy
+            COMMENT "📦 Creating portable application package with MinGW runtime"
+        )
+        
+        message(STATUS "✅ Deployment targets configured: 'deploy' and 'portable'")
+    else()
+        message(WARNING "⚠️ windeployqt not found at expected location")
+    endif()
+endif()
+
+# 安裝規則
+install(TARGETS ai_llm_integration
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)
+
+# 最終配置輸出
+message(STATUS "")
+message(STATUS "🎯 Build Configuration Summary")
+message(STATUS "===============================")
+message(STATUS "📦 Portable Build: ${BUILD_PORTABLE}")
+message(STATUS "🚀 Auto Deploy: ${DEPLOY_QT}")
+message(STATUS "🎮 Target: ai_llm_integration.exe")
+message(STATUS "🔧 Toolchain: MinGW ${CMAKE_CXX_COMPILER_VERSION}")
+message(STATUS "===============================")
+message(STATUS "")
+message(STATUS "💡 Usage:")
+message(STATUS "   cmake --build . --config Release")
+if(DEPLOY_QT)
+    message(STATUS "   cmake --build . --target deploy")
+    message(STATUS "   cmake --build . --target portable")
+endif()
+message(STATUS "")

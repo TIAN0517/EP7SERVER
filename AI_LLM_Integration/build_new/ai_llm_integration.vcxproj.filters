@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\build_new\ai_llm_integration_autogen\mocs_compilation_Debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\FramelessWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\CyberProgressBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\LLMMainWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\LLMRequestItem_New.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\OllamaLLMManager_Fixed.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\build_new\ai_llm_integration_autogen\mocs_compilation_Release.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\build_new\ai_llm_integration_autogen\mocs_compilation_MinSizeRel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\build_new\ai_llm_integration_autogen\mocs_compilation_RelWithDebInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\AcademyTheme.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\FramelessWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\CyberProgressBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\LLMRequestItem_New.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\LLMMainWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\OllamaLLMManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\RanOnline_NewBuild\RANOnline_CPP_Ultimate\AI_LLM_Integration\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{822E9C2A-09D9-3C40-BD0B-AA5D763611DE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{79124412-E3E6-3C0F-8595-B3D71D5105E8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

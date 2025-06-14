@@ -1,0 +1,369 @@
+# ========================================================================
+# RANOnline AI LLM Integration - VM相容版 CMake配置
+# 版本: 3.1.0 VM專用版
+# 開發團隊: Jy技術團隊
+# 
+# 🎯 VM/雲端主機優化特性:
+# ✅ 靜態鏈接優化 (最小化DLL依賴)
+# ✅ 軟體渲染專用構建
+# ✅ 完整依賴打包
+# ✅ VM環境自動偵測
+# ✅ 雙版本構建 (通用版 + VM精簡版)
+# ========================================================================
+
+cmake_minimum_required(VERSION 3.22)
+
+# 專案設定
+project(ai_llm_integration_vm 
+    VERSION 3.1.0 
+    DESCRIPTION "RANOnline AI LLM Integration - VM Compatible Version"
+    LANGUAGES CXX)
+
+# 編譯器標準
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# 構建類型
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type" FORCE)
+endif()
+
+# Windows特定設定
+if(WIN32)
+    set(CMAKE_WIN32_EXECUTABLE TRUE)
+    set(CMAKE_SYSTEM_VERSION 10.0)
+endif()
+
+# VM構建選項
+option(BUILD_VM_COMPATIBLE "Build VM compatible version" ON)
+option(BUILD_STATIC "Build with static linking" ON)
+option(BUILD_FULL_BUNDLE "Build full dependency bundle" ON)
+
+# ========================================================================
+# Qt6 設定
+# ========================================================================
+
+# 自動偵測Qt6路徑
+set(QT_VERSION_MAJOR 6)
+set(Qt6_DIR_CANDIDATES
+    "C:/Qt/6.9.1/mingw_64/lib/cmake/Qt6"
+    "C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6"
+    "C:/Qt/6.7.0/mingw_64/lib/cmake/Qt6"
+    "C:/Qt/6.6.0/mingw_64/lib/cmake/Qt6"
+    "C:/Qt/6.5.0/mingw_64/lib/cmake/Qt6"
+)
+
+foreach(QT_DIR ${Qt6_DIR_CANDIDATES})
+    if(EXISTS "${QT_DIR}")
+        set(Qt6_DIR "${QT_DIR}")
+        message(STATUS "Found Qt6 at: ${Qt6_DIR}")
+        break()
+    endif()
+endforeach()
+
+if(NOT Qt6_DIR)
+    message(FATAL_ERROR "Qt6 not found! Please install Qt6 or set Qt6_DIR manually.")
+endif()
+
+# Qt6 組件
+find_package(Qt6 REQUIRED COMPONENTS 
+    Core 
+    Widgets 
+    Gui 
+    Network
+    OpenGL
+    OpenGLWidgets
+)
+
+# Qt6 自動工具
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+# ========================================================================
+# 編譯器設定
+# ========================================================================
+
+# MinGW/GCC 設定
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -O3")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
+    
+    # VM相容性編譯選項
+    if(BUILD_VM_COMPATIBLE)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_NO_OPENGL_ES_2")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_OPENGL_SOFTWARE")
+    endif()
+    
+    # 靜態鏈接設定
+    if(BUILD_STATIC)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
+    endif()
+endif()
+
+# MSVC 設定
+if(MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 /O2")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2 /DNDEBUG")
+    
+    if(BUILD_VM_COMPATIBLE)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DQT_NO_OPENGL_ES_2")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DQT_OPENGL_SOFTWARE")
+    endif()
+    
+    # 靜態運行時鏈接
+    if(BUILD_STATIC)
+        set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+    endif()
+endif()
+
+# ========================================================================
+# 源文件收集
+# ========================================================================
+
+# 主要源文件
+set(SOURCES
+    LLMMainWindow.cpp
+    OllamaLLMManager.cpp
+)
+
+# VM版本和通用版本的主程序
+set(MAIN_SOURCE_STANDARD main_enterprise_compatible.cpp)
+set(MAIN_SOURCE_VM main_vm_optimized.cpp)
+
+# 頭文件
+set(HEADERS
+    LLMMainWindow.h
+    OllamaLLMManager.h
+    AcademyTheme.h
+)
+
+# 資源文件
+set(RESOURCES
+    Resources/icons.qrc
+)
+
+# 檢查源文件存在性
+foreach(SOURCE_FILE ${SOURCES} ${HEADERS})
+    if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE}")
+        message(WARNING "Source file not found: ${SOURCE_FILE}")
+    endif()
+endforeach()
+
+# ========================================================================
+# Windows 資源文件生成
+# ========================================================================
+
+if(WIN32)
+    # 創建 .rc 文件
+    set(RC_FILE "${CMAKE_CURRENT_BINARY_DIR}/app_resources.rc")
+    set(ICO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Resources/jy1.ico")
+    
+    # 檢查圖標文件
+    if(NOT EXISTS "${ICO_FILE}")
+        set(ICO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/jy1.ico")
+    endif()
+    
+    if(EXISTS "${ICO_FILE}")
+        file(WRITE "${RC_FILE}" 
+"IDI_ICON1 ICON \"${ICO_FILE}\"
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION 3,1,0,0
+PRODUCTVERSION 3,1,0,0
+FILEFLAGSMASK 0x17L
+FILEFLAGS 0x0L
+FILEOS 0x4L
+FILETYPE 0x1L
+FILESUBTYPE 0x0L
+BEGIN
+    BLOCK \"StringFileInfo\"
+    BEGIN
+        BLOCK \"040904b0\"
+        BEGIN
+            VALUE \"CompanyName\", \"Jy技術團隊\"
+            VALUE \"FileDescription\", \"RANOnline AI LLM Integration - VM Compatible\"
+            VALUE \"FileVersion\", \"3.1.0.0\"
+            VALUE \"InternalName\", \"ai_llm_integration_vm\"
+            VALUE \"LegalCopyright\", \"Copyright (C) 2025 Jy技術團隊\"
+            VALUE \"OriginalFilename\", \"ai_llm_integration_vm.exe\"
+            VALUE \"ProductName\", \"RANOnline AI LLM Integration VM Edition\"
+            VALUE \"ProductVersion\", \"3.1.0.0\"
+        END
+    END
+    BLOCK \"VarFileInfo\"
+    BEGIN
+        VALUE \"Translation\", 0x409, 1200
+    END
+END
+")
+        list(APPEND SOURCES ${RC_FILE})
+        message(STATUS "Windows resource file created: ${RC_FILE}")
+    else()
+        message(WARNING "Icon file not found: ${ICO_FILE}")
+    endif()
+endif()
+
+# ========================================================================
+# 執行檔目標 - 通用版本
+# ========================================================================
+
+add_executable(ai_llm_integration_standard
+    ${MAIN_SOURCE_STANDARD}
+    ${SOURCES}
+    ${RESOURCES}
+)
+
+target_link_libraries(ai_llm_integration_standard
+    Qt6::Core
+    Qt6::Widgets
+    Qt6::Gui
+    Qt6::Network
+    Qt6::OpenGL
+    Qt6::OpenGLWidgets
+)
+
+target_include_directories(ai_llm_integration_standard PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}
+)
+
+# 設置輸出名稱
+set_target_properties(ai_llm_integration_standard PROPERTIES
+    OUTPUT_NAME "ai_llm_integration"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
+
+# ========================================================================
+# 執行檔目標 - VM相容版本
+# ========================================================================
+
+if(BUILD_VM_COMPATIBLE)
+    add_executable(ai_llm_integration_vm
+        ${MAIN_SOURCE_VM}
+        ${SOURCES}
+        ${RESOURCES}
+    )
+
+    target_link_libraries(ai_llm_integration_vm
+        Qt6::Core
+        Qt6::Widgets
+        Qt6::Gui
+        Qt6::Network
+    )
+
+    target_include_directories(ai_llm_integration_vm PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_BINARY_DIR}
+    )
+
+    # VM版本特定編譯定義
+    target_compile_definitions(ai_llm_integration_vm PRIVATE
+        QT_NO_OPENGL_ES_2
+        QT_OPENGL_SOFTWARE
+        VM_COMPATIBLE_BUILD
+    )
+
+    # 設置輸出名稱
+    set_target_properties(ai_llm_integration_vm PROPERTIES
+        OUTPUT_NAME "ai_llm_integration_vm"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+    )
+endif()
+
+# ========================================================================
+# 部署目標
+# ========================================================================
+
+# 通用版本部署
+add_custom_target(deploy_standard
+    COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/deploy_standard"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ai_llm_integration_standard>" "${CMAKE_BINARY_DIR}/deploy_standard/"
+    DEPENDS ai_llm_integration_standard
+    COMMENT "Deploying standard version..."
+)
+
+# VM版本部署
+if(BUILD_VM_COMPATIBLE)
+    add_custom_target(deploy_vm
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/deploy_vm"
+        COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ai_llm_integration_vm>" "${CMAKE_BINARY_DIR}/deploy_vm/"
+        DEPENDS ai_llm_integration_vm
+        COMMENT "Deploying VM compatible version..."
+    )
+endif()
+
+# 完整部署 (包含所有依賴)
+if(BUILD_FULL_BUNDLE)
+    find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS ${Qt6_DIR}/../../../bin)
+    
+    if(WINDEPLOYQT_EXECUTABLE)
+        # 通用版本完整部署
+        add_custom_target(bundle_standard
+            COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/bundle_standard"
+            COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ai_llm_integration_standard>" "${CMAKE_BINARY_DIR}/bundle_standard/"
+            COMMAND ${WINDEPLOYQT_EXECUTABLE} --verbose 2 --dir "${CMAKE_BINARY_DIR}/bundle_standard" 
+                    --force --compiler-runtime --no-translations 
+                    "${CMAKE_BINARY_DIR}/bundle_standard/ai_llm_integration.exe"
+            DEPENDS ai_llm_integration_standard
+            COMMENT "Creating standard version bundle with all dependencies..."
+        )
+        
+        # VM版本完整部署
+        if(BUILD_VM_COMPATIBLE)
+            add_custom_target(bundle_vm
+                COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/bundle_vm"
+                COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ai_llm_integration_vm>" "${CMAKE_BINARY_DIR}/bundle_vm/"
+                COMMAND ${WINDEPLOYQT_EXECUTABLE} --verbose 2 --dir "${CMAKE_BINARY_DIR}/bundle_vm" 
+                        --force --compiler-runtime --no-opengl-sw
+                        "${CMAKE_BINARY_DIR}/bundle_vm/ai_llm_integration_vm.exe"
+                DEPENDS ai_llm_integration_vm
+                COMMENT "Creating VM compatible version bundle with minimal dependencies..."
+            )
+        endif()
+    else()
+        message(WARNING "windeployqt not found. Bundle targets will not work properly.")
+    endif()
+endif()
+
+# ========================================================================
+# 安裝設定
+# ========================================================================
+
+install(TARGETS ai_llm_integration_standard
+    RUNTIME DESTINATION bin
+    COMPONENT standard
+)
+
+if(BUILD_VM_COMPATIBLE)
+    install(TARGETS ai_llm_integration_vm
+        RUNTIME DESTINATION bin
+        COMPONENT vm
+    )
+endif()
+
+# ========================================================================
+# 構建信息顯示
+# ========================================================================
+
+message(STATUS "========================================")
+message(STATUS "RANOnline AI LLM Integration - VM Edition")
+message(STATUS "========================================")
+message(STATUS "Project: ${PROJECT_NAME}")
+message(STATUS "Version: ${PROJECT_VERSION}")
+message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "Qt6 Path: ${Qt6_DIR}")
+message(STATUS "C++ Standard: ${CMAKE_CXX_STANDARD}")
+message(STATUS "VM Compatible: ${BUILD_VM_COMPATIBLE}")
+message(STATUS "Static Linking: ${BUILD_STATIC}")
+message(STATUS "Full Bundle: ${BUILD_FULL_BUNDLE}")
+message(STATUS "========================================")
+
+# 構建目標摘要
+get_property(TARGETS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY BUILDSYSTEM_TARGETS)
+message(STATUS "Available targets:")
+foreach(TARGET ${TARGETS})
+    message(STATUS "  - ${TARGET}")
+endforeach()
+message(STATUS "========================================")

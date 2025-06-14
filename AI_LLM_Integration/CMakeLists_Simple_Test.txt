@@ -1,0 +1,92 @@
+cmake_minimum_required(VERSION 3.16)
+
+# ========================================================================
+# 項目配置 - AI決策核心系統測試版 (簡化版)
+# ========================================================================
+
+project(RANOnline_AI_Decision_Core_Test
+    VERSION 4.0.0
+    LANGUAGES CXX
+    DESCRIPTION "RANOnline AI決策核心系統測試"
+)
+
+# ========================================================================
+# 基本設置
+# ========================================================================
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# 設置調試信息
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS_DEBUG "-g -O0 -DDEBUG")
+
+# ========================================================================
+# Qt6 配置 (只使用基本模块)
+# ========================================================================
+
+find_package(Qt6 REQUIRED COMPONENTS 
+    Core
+    Widgets
+)
+
+# ========================================================================
+# 包含目录
+# ========================================================================
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
+# ========================================================================
+# 創建簡化的AI決策核心測試程序
+# ========================================================================
+
+# 创建一个最简化的测试程序
+add_executable(ai_decision_core_test
+    # 只包含核心AI系统文件
+    AIDecisionCore.cpp
+    AIBehaviorSystems.cpp
+    AIDecisionCoreTest.cpp
+)
+
+# 鏈接Qt6庫
+target_link_libraries(ai_decision_core_test
+    Qt6::Core
+    Qt6::Widgets
+)
+
+# 設置編譯選項
+target_compile_options(ai_decision_core_test PRIVATE
+    -Wall
+    -Wextra
+    -DDEBUG
+    -DTEST_MODE
+    -DSIMPLIFIED_BUILD
+)
+
+# ========================================================================
+# 配置文件複製
+# ========================================================================
+
+# 複製配置文件到構建目錄
+configure_file(ai_decision_config.json ai_decision_config.json COPYONLY)
+configure_file(behavior_tree_config.json behavior_tree_config.json COPYONLY)
+configure_file(qlearning_config.json qlearning_config.json COPYONLY)
+
+# ========================================================================
+# 構建信息
+# ========================================================================
+
+message(STATUS "========================================")
+message(STATUS "RANOnline AI決策核心系統測試 (簡化版)")
+message(STATUS "========================================")
+message(STATUS "Build Configuration:")
+message(STATUS "  Project: ${PROJECT_NAME}")
+message(STATUS "  Version: ${PROJECT_VERSION}")  
+message(STATUS "  Build Type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "  C++ Standard: ${CMAKE_CXX_STANDARD}")
+message(STATUS "  Qt6 Core: ${Qt6Core_VERSION}")
+message(STATUS "========================================")
+message(STATUS "Available targets:")
+message(STATUS "  - ai_decision_core_test (核心決策系統測試)")
+message(STATUS "========================================")

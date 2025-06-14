@@ -1,0 +1,82 @@
+{
+  "application": {
+    "name": "RANOnline LLM Integration",
+    "version": "1.0.0",
+    "language": "zh_TW",
+    "auto_start": false,
+    "minimize_to_tray": true,
+    "check_updates": true
+  },
+  "window": {
+    "theme": "cyber_blue",
+    "opacity": 0.95,
+    "always_on_top": false,
+    "remember_position": true,
+    "remember_size": true,
+    "default_width": 1200,
+    "default_height": 800,
+    "minimum_width": 800,
+    "minimum_height": 600
+  },
+  "llm_settings": {
+    "default_model": "llama3:latest",
+    "max_concurrent_requests": 5,
+    "default_temperature": 0.7,
+    "default_max_tokens": 2048,
+    "stream_responses": true,
+    "auto_retry": true,
+    "max_retry_attempts": 3,
+    "retry_delay_ms": 1000
+  },
+  "batch_processing": {
+    "max_batch_size": 10,
+    "batch_timeout_ms": 300000,
+    "auto_save_results": true,
+    "result_format": "json",
+    "parallel_processing": true
+  },
+  "websocket": {
+    "game_server_enabled": false,
+    "game_server_host": "localhost",
+    "game_server_port": 8080,
+    "auto_reconnect": true,
+    "ping_interval_ms": 30000,
+    "connection_timeout_ms": 10000
+  },
+  "logging": {
+    "level": "INFO",
+    "max_file_size_mb": 100,
+    "max_files": 10,
+    "log_to_file": true,
+    "log_to_console": true,
+    "colored_output": true,
+    "categories": {
+      "LLM": true,
+      "GUI": true,
+      "Network": true,
+      "WebSocket": true,
+      "Error": true,
+      "Debug": false
+    }
+  },
+  "performance": {
+    "ui_update_interval_ms": 100,
+    "progress_update_interval_ms": 250,
+    "stats_update_interval_ms": 1000,
+    "cache_size_mb": 256,
+    "preload_models": false
+  },
+  "security": {
+    "ssl_verify": true,
+    "api_timeout_ms": 30000,
+    "max_request_size_mb": 10,
+    "rate_limit_requests_per_minute": 60
+  },
+  "export": {
+    "default_format": "json",
+    "include_timestamps": true,
+    "include_metadata": true,
+    "compression": "gzip",
+    "auto_backup": true
+  }
+}

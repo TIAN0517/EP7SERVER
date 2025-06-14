@@ -1,0 +1,11 @@
+[週六 2025/06/14 13:59:48.47] 開始MinGW構建 - Jy技術團隊線上AI極簡VM穩定便攜版 
+========================================== 
+[OK] 源文件檢查通過 
+[OK] Qt6路徑: "C:\Qt\6.9.1\mingw_64" 
+[OK] MinGW路徑: "C:\Qt\Tools\mingw1310_64" 
+[OK] CMake已安裝 
+[OK] 編譯器: g++ (x86_64-posix-seh-rev1, Built by MinGW-Builds project) 13.1.0 
+[OK] windeployqt可用 
+[OK] 舊構建目錄已清理 
+[OK] MinGW專用CMake配置已創建 
+[INFO] 開始CMake配置 (MinGW) 

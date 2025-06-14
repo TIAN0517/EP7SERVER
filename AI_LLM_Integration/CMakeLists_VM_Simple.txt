@@ -1,0 +1,290 @@
+# ========================================================================
+# RANOnline AI LLM Integration - VM超簡化版 CMake配置
+# 版本: 3.1.0 VM超簡化版
+# 開發團隊: Jy技術團隊
+# 
+# 🎯 VM/雲端主機超級優化特性:
+# ✅ 完全去除複雜依賴
+# ✅ 純Qt Core/Widgets/Gui實現
+# ✅ 靜態鏈接優化
+# ✅ 軟體渲染專用
+# ✅ 最小化構建時間
+# ========================================================================
+
+cmake_minimum_required(VERSION 3.22)
+
+# 專案設定
+project(ai_llm_integration_vm_simple 
+    VERSION 3.1.0 
+    DESCRIPTION "RANOnline AI LLM Integration - VM Simple Edition"
+    LANGUAGES CXX)
+
+# 編譯器標準
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# 構建類型
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type" FORCE)
+endif()
+
+# Windows特定設定
+if(WIN32)
+    set(CMAKE_WIN32_EXECUTABLE TRUE)
+    set(CMAKE_SYSTEM_VERSION 10.0)
+endif()
+
+# ========================================================================
+# Qt6 設定
+# ========================================================================
+
+# 自動偵測Qt6路徑
+set(QT_VERSION_MAJOR 6)
+set(Qt6_DIR_CANDIDATES
+    "C:/Qt/6.9.1/mingw_64/lib/cmake/Qt6"
+    "C:/Qt/6.8.0/mingw_64/lib/cmake/Qt6"
+    "C:/Qt/6.7.0/mingw_64/lib/cmake/Qt6"
+    "C:/Qt/6.6.0/mingw_64/lib/cmake/Qt6"
+    "C:/Qt/6.5.0/mingw_64/lib/cmake/Qt6"
+)
+
+foreach(QT_DIR ${Qt6_DIR_CANDIDATES})
+    if(EXISTS "${QT_DIR}")
+        set(Qt6_DIR "${QT_DIR}")
+        message(STATUS "Found Qt6 at: ${Qt6_DIR}")
+        break()
+    endif()
+endforeach()
+
+if(NOT Qt6_DIR)
+    message(FATAL_ERROR "Qt6 not found! Please install Qt6 or set Qt6_DIR manually.")
+endif()
+
+# Qt6 基本組件 (最小化依賴)
+find_package(Qt6 REQUIRED COMPONENTS 
+    Core 
+    Widgets 
+    Gui
+)
+
+# Qt6 自動工具
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+# ========================================================================
+# 編譯器設定
+# ========================================================================
+
+# MinGW/GCC 設定
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -O3")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
+    
+    # VM相容性編譯選項
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_NO_OPENGL_ES_2")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_OPENGL_SOFTWARE")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVM_SIMPLE_BUILD")
+    
+    # 靜態鏈接設定
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static-libgcc -static-libstdc++")
+endif()
+
+# MSVC 設定
+if(MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W3 /O2")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2 /DNDEBUG")
+    
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DQT_NO_OPENGL_ES_2")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DQT_OPENGL_SOFTWARE")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /DVM_SIMPLE_BUILD")
+    
+    # 靜態運行時鏈接
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+endif()
+
+# ========================================================================
+# 源文件設定
+# ========================================================================
+
+# 主要源文件 (只有一個main文件)
+set(MAIN_SOURCE main_vm_simple_complete.cpp)
+
+# 檢查源文件存在性
+if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${MAIN_SOURCE}")
+    message(FATAL_ERROR "Main source file not found: ${MAIN_SOURCE}")
+endif()
+
+# 資源文件 (可選)
+set(RESOURCES "")
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/Resources/icons.qrc")
+    set(RESOURCES Resources/icons.qrc)
+endif()
+
+# ========================================================================
+# Windows 資源文件
+# ========================================================================
+
+if(WIN32)
+    # 創建 .rc 文件
+    set(RC_FILE "${CMAKE_CURRENT_BINARY_DIR}/vm_simple_resources.rc")
+    set(ICO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/jy1.ico")
+    
+    # 檢查圖標文件
+    if(NOT EXISTS "${ICO_FILE}")
+        set(ICO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/Resources/jy1.ico")
+    endif()
+    
+    if(NOT EXISTS "${ICO_FILE}")
+        set(ICO_FILE "${CMAKE_CURRENT_SOURCE_DIR}/../icogui/jy1.ico")
+    endif()
+    
+    if(EXISTS "${ICO_FILE}")
+        file(WRITE "${RC_FILE}" 
+"IDI_ICON1 ICON \"${ICO_FILE}\"
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION 3,1,0,0
+PRODUCTVERSION 3,1,0,0
+FILEFLAGSMASK 0x17L
+FILEFLAGS 0x0L
+FILEOS 0x4L
+FILETYPE 0x1L
+FILESUBTYPE 0x0L
+BEGIN
+    BLOCK \"StringFileInfo\"
+    BEGIN
+        BLOCK \"040904b0\"
+        BEGIN
+            VALUE \"CompanyName\", \"Jy技術團隊\"
+            VALUE \"FileDescription\", \"RANOnline AI LLM Integration - VM Simple Edition\"
+            VALUE \"FileVersion\", \"3.1.0.0\"
+            VALUE \"InternalName\", \"ai_llm_integration_vm_simple\"
+            VALUE \"LegalCopyright\", \"Copyright (C) 2025 Jy技術團隊\"
+            VALUE \"OriginalFilename\", \"ai_llm_integration_vm_simple.exe\"
+            VALUE \"ProductName\", \"RANOnline AI LLM Integration VM Simple\"
+            VALUE \"ProductVersion\", \"3.1.0.0\"
+        END
+    END
+    BLOCK \"VarFileInfo\"
+    BEGIN
+        VALUE \"Translation\", 0x409, 1200
+    END
+END
+")
+        set(RESOURCES ${RESOURCES} ${RC_FILE})
+        message(STATUS "Windows resource file created: ${RC_FILE}")
+    else()
+        message(WARNING "Icon file not found, skipping resource file creation")
+    endif()
+endif()
+
+# ========================================================================
+# 執行檔目標
+# ========================================================================
+
+add_executable(ai_llm_integration_vm_simple
+    ${MAIN_SOURCE}
+    ${RESOURCES}
+)
+
+target_link_libraries(ai_llm_integration_vm_simple
+    Qt6::Core
+    Qt6::Widgets
+    Qt6::Gui
+)
+
+target_include_directories(ai_llm_integration_vm_simple PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_BINARY_DIR}
+)
+
+# VM版本特定編譯定義
+target_compile_definitions(ai_llm_integration_vm_simple PRIVATE
+    QT_NO_OPENGL_ES_2
+    QT_OPENGL_SOFTWARE
+    VM_SIMPLE_BUILD
+    VM_COMPATIBLE_BUILD
+)
+
+# 設置輸出名稱
+set_target_properties(ai_llm_integration_vm_simple PROPERTIES
+    OUTPUT_NAME "RANOnline_AI_VM_Simple"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
+
+# ========================================================================
+# 部署目標
+# ========================================================================
+
+# 基本部署
+add_custom_target(deploy_simple
+    COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/deploy_simple"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ai_llm_integration_vm_simple>" "${CMAKE_BINARY_DIR}/deploy_simple/"
+    DEPENDS ai_llm_integration_vm_simple
+    COMMENT "Deploying VM simple version..."
+)
+
+# 完整部署包
+find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS ${Qt6_DIR}/../../../bin)
+
+if(WINDEPLOYQT_EXECUTABLE)
+    add_custom_target(bundle_simple
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/bundle_simple"
+        COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ai_llm_integration_vm_simple>" "${CMAKE_BINARY_DIR}/bundle_simple/"        COMMAND ${WINDEPLOYQT_EXECUTABLE} --verbose 2 --dir "${CMAKE_BINARY_DIR}/bundle_simple" 
+                --force --compiler-runtime --no-translations --no-system-d3d-compiler
+                "${CMAKE_BINARY_DIR}/bundle_simple/RANOnline_AI_VM_Simple.exe"
+        DEPENDS ai_llm_integration_vm_simple
+        COMMENT "Creating VM simple version bundle with minimal dependencies..."
+    )
+    
+    # 創建便攜版壓縮包
+    add_custom_target(package_simple
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/package_simple"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_BINARY_DIR}/bundle_simple" "${CMAKE_BINARY_DIR}/package_simple"
+        COMMAND ${CMAKE_COMMAND} -E echo "RANOnline AI LLM Integration - VM Simple Edition v3.1.0" > "${CMAKE_BINARY_DIR}/package_simple/README.txt"
+        COMMAND ${CMAKE_COMMAND} -E echo "開發團隊: Jy技術團隊" >> "${CMAKE_BINARY_DIR}/package_simple/README.txt"
+        COMMAND ${CMAKE_COMMAND} -E echo "這是專為VM環境優化的超簡化版本" >> "${CMAKE_BINARY_DIR}/package_simple/README.txt"
+        COMMAND ${CMAKE_COMMAND} -E echo "雙擊 RANOnline_AI_VM_Simple.exe 啟動程序" >> "${CMAKE_BINARY_DIR}/package_simple/README.txt"
+        DEPENDS bundle_simple
+        COMMENT "Creating portable package..."
+    )
+else()
+    message(WARNING "windeployqt not found. Bundle targets will not work properly.")
+endif()
+
+# ========================================================================
+# 安裝設定
+# ========================================================================
+
+install(TARGETS ai_llm_integration_vm_simple
+    RUNTIME DESTINATION bin
+    COMPONENT vm_simple
+)
+
+# ========================================================================
+# 構建信息顯示
+# ========================================================================
+
+message(STATUS "========================================")
+message(STATUS "RANOnline AI LLM Integration - VM Simple")
+message(STATUS "========================================")
+message(STATUS "Project: ${PROJECT_NAME}")
+message(STATUS "Version: ${PROJECT_VERSION}")
+message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "Qt6 Path: ${Qt6_DIR}")
+message(STATUS "C++ Standard: ${CMAKE_CXX_STANDARD}")
+message(STATUS "Main Source: ${MAIN_SOURCE}")
+message(STATUS "Resources: ${RESOURCES}")
+message(STATUS "========================================")
+
+# 構建目標摘要
+message(STATUS "Available targets:")
+message(STATUS "  - ai_llm_integration_vm_simple (executable)")
+message(STATUS "  - deploy_simple (basic deployment)")
+if(WINDEPLOYQT_EXECUTABLE)
+    message(STATUS "  - bundle_simple (full deployment)")
+    message(STATUS "  - package_simple (portable package)")
+endif()
+message(STATUS "========================================")

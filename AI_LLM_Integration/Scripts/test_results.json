@@ -1,0 +1,338 @@
+[
+  {
+    "category": "character_generation",
+    "department": "劍術",
+    "academy": "聖門",
+    "prompt": "你是《RAN Online》自動AI生成器。請根據三大學院（聖門、懸岩、鳳凰）與四大部門（劍術、弓術、格鬥、氣功）隨機產生3名聖門學院AI角色，每個角色須有：學院、部門、姓名（6字以內）、性格特徵、戰鬥風格、專屬台詞。輸出格式：JSON陣列。",
+    "timestamp": "2025-06-14T05:48:51.362744"
+  },
+  {
+    "category": "character_generation",
+    "department": "劍術",
+    "academy": "懸岩",
+    "prompt": "你是《RAN Online》自動AI生成器。請根據三大學院（聖門、懸岩、鳳凰）與四大部門（劍術、弓術、格鬥、氣功）隨機產生3名懸岩學院AI角色，每個角色須有：學院、部門、姓名（6字以內）、性格特徵、戰鬥風格、專屬台詞。輸出格式：JSON陣列。",
+    "timestamp": "2025-06-14T05:48:51.362776"
+  },
+  {
+    "category": "character_generation",
+    "department": "劍術",
+    "academy": "鳳凰",
+    "prompt": "你是《RAN Online》自動AI生成器。請根據三大學院（聖門、懸岩、鳳凰）與四大部門（劍術、弓術、格鬥、氣功）隨機產生3名鳳凰學院AI角色，每個角色須有：學院、部門、姓名（6字以內）、性格特徵、戰鬥風格、專屬台詞。輸出格式：JSON陣列。",
+    "timestamp": "2025-06-14T05:48:51.362779"
+  },
+  {
+    "category": "character_generation",
+    "department": "弓術",
+    "academy": "聖門",
+    "prompt": "你是《RAN Online》自動AI生成器。請根據三大學院（聖門、懸岩、鳳凰）與四大部門（劍術、弓術、格鬥、氣功）隨機產生3名聖門學院AI角色，每個角色須有：學院、部門、姓名（6字以內）、性格特徵、戰鬥風格、專屬台詞。輸出格式：JSON陣列。",
+    "timestamp": "2025-06-14T05:48:51.362781"
+  },
+  {
+    "category": "character_generation",
+    "department": "弓術",
+    "academy": "懸岩",
+    "prompt": "你是《RAN Online》自動AI生成器。請根據三大學院（聖門、懸岩、鳳凰）與四大部門（劍術、弓術、格鬥、氣功）隨機產生3名懸岩學院AI角色，每個角色須有：學院、部門、姓名（6字以內）、性格特徵、戰鬥風格、專屬台詞。輸出格式：JSON陣列。",
+    "timestamp": "2025-06-14T05:48:51.362783"
+  },
+  {
+    "category": "character_generation",
+    "department": "弓術",
+    "academy": "鳳凰",
+    "prompt": "你是《RAN Online》自動AI生成器。請根據三大學院（聖門、懸岩、鳳凰）與四大部門（劍術、弓術、格鬥、氣功）隨機產生3名鳳凰學院AI角色，每個角色須有：學院、部門、姓名（6字以內）、性格特徵、戰鬥風格、專屬台詞。輸出格式：JSON陣列。",
+    "timestamp": "2025-06-14T05:48:51.362784"
+  },
+  {
+    "category": "character_generation",
+    "department": "格鬥",
+    "academy": "聖門",
+    "prompt": "你是《RAN Online》自動AI生成器。請根據三大學院（聖門、懸岩、鳳凰）與四大部門（劍術、弓術、格鬥、氣功）隨機產生3名聖門學院AI角色，每個角色須有：學院、部門、姓名（6字以內）、性格特徵、戰鬥風格、專屬台詞。輸出格式：JSON陣列。",
+    "timestamp": "2025-06-14T05:48:51.362786"
+  },
+  {
+    "category": "character_generation",
+    "department": "格鬥",
+    "academy": "懸岩",
+    "prompt": "你是《RAN Online》自動AI生成器。請根據三大學院（聖門、懸岩、鳳凰）與四大部門（劍術、弓術、格鬥、氣功）隨機產生3名懸岩學院AI角色，每個角色須有：學院、部門、姓名（6字以內）、性格特徵、戰鬥風格、專屬台詞。輸出格式：JSON陣列。",
+    "timestamp": "2025-06-14T05:48:51.362789"
+  },
+  {
+    "category": "character_generation",
+    "department": "格鬥",
+    "academy": "鳳凰",
+    "prompt": "你是《RAN Online》自動AI生成器。請根據三大學院（聖門、懸岩、鳳凰）與四大部門（劍術、弓術、格鬥、氣功）隨機產生3名鳳凰學院AI角色，每個角色須有：學院、部門、姓名（6字以內）、性格特徵、戰鬥風格、專屬台詞。輸出格式：JSON陣列。",
+    "timestamp": "2025-06-14T05:48:51.362791"
+  },
+  {
+    "category": "character_generation",
+    "department": "氣功",
+    "academy": "聖門",
+    "prompt": "你是《RAN Online》自動AI生成器。請根據三大學院（聖門、懸岩、鳳凰）與四大部門（劍術、弓術、格鬥、氣功）隨機產生3名聖門學院AI角色，每個角色須有：學院、部門、姓名（6字以內）、性格特徵、戰鬥風格、專屬台詞。輸出格式：JSON陣列。",
+    "timestamp": "2025-06-14T05:48:51.362792"
+  },
+  {
+    "category": "character_generation",
+    "department": "氣功",
+    "academy": "懸岩",
+    "prompt": "你是《RAN Online》自動AI生成器。請根據三大學院（聖門、懸岩、鳳凰）與四大部門（劍術、弓術、格鬥、氣功）隨機產生3名懸岩學院AI角色，每個角色須有：學院、部門、姓名（6字以內）、性格特徵、戰鬥風格、專屬台詞。輸出格式：JSON陣列。",
+    "timestamp": "2025-06-14T05:48:51.362794"
+  },
+  {
+    "category": "character_generation",
+    "department": "氣功",
+    "academy": "鳳凰",
+    "prompt": "你是《RAN Online》自動AI生成器。請根據三大學院（聖門、懸岩、鳳凰）與四大部門（劍術、弓術、格鬥、氣功）隨機產生3名鳳凰學院AI角色，每個角色須有：學院、部門、姓名（6字以內）、性格特徵、戰鬥風格、專屬台詞。輸出格式：JSON陣列。",
+    "timestamp": "2025-06-14T05:48:51.362796"
+  },
+  {
+    "category": "combat_tactics",
+    "department": "劍術",
+    "academy": "聖門",
+    "prompt": "你是劍術系AI，隸屬聖門學院。當前戰況：敵方有5名不同職業的玩家，地形為山地高低起伏。請制定專屬戰術，考慮你的職業特色和學院風格。",
+    "timestamp": "2025-06-14T05:48:51.362798"
+  },
+  {
+    "category": "combat_tactics",
+    "department": "劍術",
+    "academy": "懸岩",
+    "prompt": "你是劍術系AI，隸屬懸岩學院。當前戰況：敵方有5名不同職業的玩家，地形為山地高低起伏。請制定專屬戰術，考慮你的職業特色和學院風格。",
+    "timestamp": "2025-06-14T05:48:51.362799"
+  },
+  {
+    "category": "combat_tactics",
+    "department": "劍術",
+    "academy": "鳳凰",
+    "prompt": "你是劍術系AI，隸屬鳳凰學院。當前戰況：敵方有5名不同職業的玩家，地形為山地高低起伏。請制定專屬戰術，考慮你的職業特色和學院風格。",
+    "timestamp": "2025-06-14T05:48:51.362801"
+  },
+  {
+    "category": "combat_tactics",
+    "department": "弓術",
+    "academy": "聖門",
+    "prompt": "你是弓術系AI，隸屬聖門學院。當前戰況：敵方有5名不同職業的玩家，地形為山地高低起伏。請制定專屬戰術，考慮你的職業特色和學院風格。",
+    "timestamp": "2025-06-14T05:48:51.362802"
+  },
+  {
+    "category": "combat_tactics",
+    "department": "弓術",
+    "academy": "懸岩",
+    "prompt": "你是弓術系AI，隸屬懸岩學院。當前戰況：敵方有5名不同職業的玩家，地形為山地高低起伏。請制定專屬戰術，考慮你的職業特色和學院風格。",
+    "timestamp": "2025-06-14T05:48:51.362804"
+  },
+  {
+    "category": "combat_tactics",
+    "department": "弓術",
+    "academy": "鳳凰",
+    "prompt": "你是弓術系AI，隸屬鳳凰學院。當前戰況：敵方有5名不同職業的玩家，地形為山地高低起伏。請制定專屬戰術，考慮你的職業特色和學院風格。",
+    "timestamp": "2025-06-14T05:48:51.362805"
+  },
+  {
+    "category": "combat_tactics",
+    "department": "格鬥",
+    "academy": "聖門",
+    "prompt": "你是格鬥系AI，隸屬聖門學院。當前戰況：敵方有5名不同職業的玩家，地形為山地高低起伏。請制定專屬戰術，考慮你的職業特色和學院風格。",
+    "timestamp": "2025-06-14T05:48:51.362808"
+  },
+  {
+    "category": "combat_tactics",
+    "department": "格鬥",
+    "academy": "懸岩",
+    "prompt": "你是格鬥系AI，隸屬懸岩學院。當前戰況：敵方有5名不同職業的玩家，地形為山地高低起伏。請制定專屬戰術，考慮你的職業特色和學院風格。",
+    "timestamp": "2025-06-14T05:48:51.362810"
+  },
+  {
+    "category": "combat_tactics",
+    "department": "格鬥",
+    "academy": "鳳凰",
+    "prompt": "你是格鬥系AI，隸屬鳳凰學院。當前戰況：敵方有5名不同職業的玩家，地形為山地高低起伏。請制定專屬戰術，考慮你的職業特色和學院風格。",
+    "timestamp": "2025-06-14T05:48:51.362811"
+  },
+  {
+    "category": "combat_tactics",
+    "department": "氣功",
+    "academy": "聖門",
+    "prompt": "你是氣功系AI，隸屬聖門學院。當前戰況：敵方有5名不同職業的玩家，地形為山地高低起伏。請制定專屬戰術，考慮你的職業特色和學院風格。",
+    "timestamp": "2025-06-14T05:48:51.362815"
+  },
+  {
+    "category": "combat_tactics",
+    "department": "氣功",
+    "academy": "懸岩",
+    "prompt": "你是氣功系AI，隸屬懸岩學院。當前戰況：敵方有5名不同職業的玩家，地形為山地高低起伏。請制定專屬戰術，考慮你的職業特色和學院風格。",
+    "timestamp": "2025-06-14T05:48:51.362817"
+  },
+  {
+    "category": "combat_tactics",
+    "department": "氣功",
+    "academy": "鳳凰",
+    "prompt": "你是氣功系AI，隸屬鳳凰學院。當前戰況：敵方有5名不同職業的玩家，地形為山地高低起伏。請制定專屬戰術，考慮你的職業特色和學院風格。",
+    "timestamp": "2025-06-14T05:48:51.362818"
+  },
+  {
+    "category": "pk_interaction",
+    "department": "劍術",
+    "academy": "聖門",
+    "prompt": "你是聖門/劍術AI，在PK中遇到敵方挑釁：「你們聖門學院的劍術系都很弱！根本不是我們的對手！」請用充滿個性的繁體中文嗆聲回應。",
+    "timestamp": "2025-06-14T05:48:51.362820"
+  },
+  {
+    "category": "pk_interaction",
+    "department": "劍術",
+    "academy": "懸岩",
+    "prompt": "你是懸岩/劍術AI，在PK中遇到敵方挑釁：「你們懸岩學院的劍術系都很弱！根本不是我們的對手！」請用充滿個性的繁體中文嗆聲回應。",
+    "timestamp": "2025-06-14T05:48:51.362821"
+  },
+  {
+    "category": "pk_interaction",
+    "department": "劍術",
+    "academy": "鳳凰",
+    "prompt": "你是鳳凰/劍術AI，在PK中遇到敵方挑釁：「你們鳳凰學院的劍術系都很弱！根本不是我們的對手！」請用充滿個性的繁體中文嗆聲回應。",
+    "timestamp": "2025-06-14T05:48:51.362823"
+  },
+  {
+    "category": "pk_interaction",
+    "department": "弓術",
+    "academy": "聖門",
+    "prompt": "你是聖門/弓術AI，在PK中遇到敵方挑釁：「你們聖門學院的弓術系都很弱！根本不是我們的對手！」請用充滿個性的繁體中文嗆聲回應。",
+    "timestamp": "2025-06-14T05:48:51.362824"
+  },
+  {
+    "category": "pk_interaction",
+    "department": "弓術",
+    "academy": "懸岩",
+    "prompt": "你是懸岩/弓術AI，在PK中遇到敵方挑釁：「你們懸岩學院的弓術系都很弱！根本不是我們的對手！」請用充滿個性的繁體中文嗆聲回應。",
+    "timestamp": "2025-06-14T05:48:51.362825"
+  },
+  {
+    "category": "pk_interaction",
+    "department": "弓術",
+    "academy": "鳳凰",
+    "prompt": "你是鳳凰/弓術AI，在PK中遇到敵方挑釁：「你們鳳凰學院的弓術系都很弱！根本不是我們的對手！」請用充滿個性的繁體中文嗆聲回應。",
+    "timestamp": "2025-06-14T05:48:51.362827"
+  },
+  {
+    "category": "pk_interaction",
+    "department": "格鬥",
+    "academy": "聖門",
+    "prompt": "你是聖門/格鬥AI，在PK中遇到敵方挑釁：「你們聖門學院的格鬥系都很弱！根本不是我們的對手！」請用充滿個性的繁體中文嗆聲回應。",
+    "timestamp": "2025-06-14T05:48:51.362828"
+  },
+  {
+    "category": "pk_interaction",
+    "department": "格鬥",
+    "academy": "懸岩",
+    "prompt": "你是懸岩/格鬥AI，在PK中遇到敵方挑釁：「你們懸岩學院的格鬥系都很弱！根本不是我們的對手！」請用充滿個性的繁體中文嗆聲回應。",
+    "timestamp": "2025-06-14T05:48:51.362830"
+  },
+  {
+    "category": "pk_interaction",
+    "department": "格鬥",
+    "academy": "鳳凰",
+    "prompt": "你是鳳凰/格鬥AI，在PK中遇到敵方挑釁：「你們鳳凰學院的格鬥系都很弱！根本不是我們的對手！」請用充滿個性的繁體中文嗆聲回應。",
+    "timestamp": "2025-06-14T05:48:51.362832"
+  },
+  {
+    "category": "pk_interaction",
+    "department": "氣功",
+    "academy": "聖門",
+    "prompt": "你是聖門/氣功AI，在PK中遇到敵方挑釁：「你們聖門學院的氣功系都很弱！根本不是我們的對手！」請用充滿個性的繁體中文嗆聲回應。",
+    "timestamp": "2025-06-14T05:48:51.362833"
+  },
+  {
+    "category": "pk_interaction",
+    "department": "氣功",
+    "academy": "懸岩",
+    "prompt": "你是懸岩/氣功AI，在PK中遇到敵方挑釁：「你們懸岩學院的氣功系都很弱！根本不是我們的對手！」請用充滿個性的繁體中文嗆聲回應。",
+    "timestamp": "2025-06-14T05:48:51.362835"
+  },
+  {
+    "category": "pk_interaction",
+    "department": "氣功",
+    "academy": "鳳凰",
+    "prompt": "你是鳳凰/氣功AI，在PK中遇到敵方挑釁：「你們鳳凰學院的氣功系都很弱！根本不是我們的對手！」請用充滿個性的繁體中文嗆聲回應。",
+    "timestamp": "2025-06-14T05:48:51.362836"
+  },
+  {
+    "category": "skill_automation",
+    "department": "劍術",
+    "academy": "聖門",
+    "prompt": "你是AI劍術師，當前狀況：友方劍術系HP剩20%且被石化，弓術系MP耗盡，格鬥系正在與敵方纏鬥，敵方法師正在吟唱大招。請選擇最適合的技能並說明原因。",
+    "timestamp": "2025-06-14T05:48:51.362838"
+  },
+  {
+    "category": "skill_automation",
+    "department": "劍術",
+    "academy": "懸岩",
+    "prompt": "你是AI劍術師，當前狀況：友方劍術系HP剩20%且被石化，弓術系MP耗盡，格鬥系正在與敵方纏鬥，敵方法師正在吟唱大招。請選擇最適合的技能並說明原因。",
+    "timestamp": "2025-06-14T05:48:51.362839"
+  },
+  {
+    "category": "skill_automation",
+    "department": "劍術",
+    "academy": "鳳凰",
+    "prompt": "你是AI劍術師，當前狀況：友方劍術系HP剩20%且被石化，弓術系MP耗盡，格鬥系正在與敵方纏鬥，敵方法師正在吟唱大招。請選擇最適合的技能並說明原因。",
+    "timestamp": "2025-06-14T05:48:51.362840"
+  },
+  {
+    "category": "skill_automation",
+    "department": "弓術",
+    "academy": "聖門",
+    "prompt": "你是AI弓術師，當前狀況：友方劍術系HP剩20%且被石化，弓術系MP耗盡，格鬥系正在與敵方纏鬥，敵方法師正在吟唱大招。請選擇最適合的技能並說明原因。",
+    "timestamp": "2025-06-14T05:48:51.362842"
+  },
+  {
+    "category": "skill_automation",
+    "department": "弓術",
+    "academy": "懸岩",
+    "prompt": "你是AI弓術師，當前狀況：友方劍術系HP剩20%且被石化，弓術系MP耗盡，格鬥系正在與敵方纏鬥，敵方法師正在吟唱大招。請選擇最適合的技能並說明原因。",
+    "timestamp": "2025-06-14T05:48:51.362843"
+  },
+  {
+    "category": "skill_automation",
+    "department": "弓術",
+    "academy": "鳳凰",
+    "prompt": "你是AI弓術師，當前狀況：友方劍術系HP剩20%且被石化，弓術系MP耗盡，格鬥系正在與敵方纏鬥，敵方法師正在吟唱大招。請選擇最適合的技能並說明原因。",
+    "timestamp": "2025-06-14T05:48:51.362845"
+  },
+  {
+    "category": "skill_automation",
+    "department": "格鬥",
+    "academy": "聖門",
+    "prompt": "你是AI格鬥師，當前狀況：友方劍術系HP剩20%且被石化，弓術系MP耗盡，格鬥系正在與敵方纏鬥，敵方法師正在吟唱大招。請選擇最適合的技能並說明原因。",
+    "timestamp": "2025-06-14T05:48:51.362850"
+  },
+  {
+    "category": "skill_automation",
+    "department": "格鬥",
+    "academy": "懸岩",
+    "prompt": "你是AI格鬥師，當前狀況：友方劍術系HP剩20%且被石化，弓術系MP耗盡，格鬥系正在與敵方纏鬥，敵方法師正在吟唱大招。請選擇最適合的技能並說明原因。",
+    "timestamp": "2025-06-14T05:48:51.362851"
+  },
+  {
+    "category": "skill_automation",
+    "department": "格鬥",
+    "academy": "鳳凰",
+    "prompt": "你是AI格鬥師，當前狀況：友方劍術系HP剩20%且被石化，弓術系MP耗盡，格鬥系正在與敵方纏鬥，敵方法師正在吟唱大招。請選擇最適合的技能並說明原因。",
+    "timestamp": "2025-06-14T05:48:51.362855"
+  },
+  {
+    "category": "skill_automation",
+    "department": "氣功",
+    "academy": "聖門",
+    "prompt": "你是AI氣功師，當前狀況：友方劍術系HP剩20%且被石化，弓術系MP耗盡，格鬥系正在與敵方纏鬥，敵方法師正在吟唱大招。請選擇最適合的技能並說明原因。",
+    "timestamp": "2025-06-14T05:48:51.362857"
+  },
+  {
+    "category": "skill_automation",
+    "department": "氣功",
+    "academy": "懸岩",
+    "prompt": "你是AI氣功師，當前狀況：友方劍術系HP剩20%且被石化，弓術系MP耗盡，格鬥系正在與敵方纏鬥，敵方法師正在吟唱大招。請選擇最適合的技能並說明原因。",
+    "timestamp": "2025-06-14T05:48:51.362858"
+  },
+  {
+    "category": "skill_automation",
+    "department": "氣功",
+    "academy": "鳳凰",
+    "prompt": "你是AI氣功師，當前狀況：友方劍術系HP剩20%且被石化，弓術系MP耗盡，格鬥系正在與敵方纏鬥，敵方法師正在吟唱大招。請選擇最適合的技能並說明原因。",
+    "timestamp": "2025-06-14T05:48:51.362859"
+  }
+]

@@ -1,0 +1,63 @@
+cmake_minimum_required(VERSION 3.22)
+project(simple_test VERSION 1.0.0 LANGUAGES CXX)
+
+# 設置C++標準
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# MinGW特定設置
+if(WIN32)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
+    add_compile_definitions(WIN32_LEAN_AND_MEAN)
+endif()
+
+# Qt6設置
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+# 明確指定Qt路徑
+set(Qt6_DIR "C:/Qt/6.9.1/mingw_64/lib/cmake/Qt6")
+set(CMAKE_PREFIX_PATH "C:/Qt/6.9.1/mingw_64")
+
+# 查找Qt6核心模組
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets Gui)
+
+# MinGW編譯器特定設置
+if(MINGW)
+    add_compile_options(-finput-charset=UTF-8 -fexec-charset=UTF-8)
+endif()
+
+# 資源文件
+set(RESOURCES Resources/icons.qrc)
+
+# 創建可執行文件
+add_executable(simple_test main_simple.cpp ${RESOURCES})
+
+# 為應用程式設置圖標
+if(WIN32)
+    set(WINDOWS_RC_FILE "${CMAKE_CURRENT_BINARY_DIR}/app_icon.rc")
+    file(WRITE ${WINDOWS_RC_FILE} "IDI_ICON1 ICON \"${CMAKE_CURRENT_SOURCE_DIR}/Resources/jy1.ico\"\n")
+    target_sources(simple_test PRIVATE ${WINDOWS_RC_FILE})
+endif()
+
+# 鏈接Qt庫
+target_link_libraries(simple_test Qt6::Core Qt6::Widgets Qt6::Gui)
+
+# Windows特定系統庫
+if(WIN32)
+    target_link_libraries(simple_test 
+        ws2_32 winmm imm32 version ole32 oleaut32 uuid 
+        advapi32 shell32 user32 kernel32 gdi32 comdlg32 winspool
+    )
+endif()
+
+# 設置為GUI應用程式
+set_target_properties(simple_test PROPERTIES
+    WIN32_EXECUTABLE TRUE
+    OUTPUT_NAME "simple_test"
+    LINK_FLAGS "-mwindows"
+)
+
+message(STATUS "🧪 Simple Test Application - Ready to build")

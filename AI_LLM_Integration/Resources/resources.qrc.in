@@ -1,0 +1,32 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="/icons">
+        <file>icons/ai_brain.png</file>
+        <file>icons/ran_logo.png</file>
+        <file>icons/ollama_icon.png</file>
+        <file>icons/academy_warrior.png</file>
+        <file>icons/academy_mage.png</file>
+        <file>icons/academy_archer.png</file>
+        <file>icons/academy_thief.png</file>
+        <file>icons/academy_priest.png</file>
+    </qresource>
+    
+    <qresource prefix="/themes">
+        <file>themes/cyber_blue_bg.png</file>
+        <file>themes/neon_green_bg.png</file>
+        <file>themes/purple_haze_bg.png</file>
+        <file>themes/red_alert_bg.png</file>
+        <file>themes/golden_glow_bg.png</file>
+    </qresource>
+    
+    <qresource prefix="/fonts">
+        <file>fonts/Roboto-Regular.ttf</file>
+        <file>fonts/Roboto-Bold.ttf</file>
+        <file>fonts/NotoSansCJK-Regular.ttc</file>
+        <file>fonts/NotoSansCJK-Bold.ttc</file>
+    </qresource>
+    
+    <qresource prefix="/translations">
+        @TRANSLATION_FILES@
+    </qresource>
+</RCC>

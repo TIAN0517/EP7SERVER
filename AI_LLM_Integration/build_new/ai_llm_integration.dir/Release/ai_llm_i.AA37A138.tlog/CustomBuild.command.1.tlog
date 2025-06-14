@@ -1,0 +1,10 @@
+^C:\RANONLINE_NEWBUILD\RANONLINE_CPP_ULTIMATE\AI_LLM_INTEGRATION\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration -BC:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/build_new --check-stamp-file C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/build_new/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

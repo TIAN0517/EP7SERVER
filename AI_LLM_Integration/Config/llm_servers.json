@@ -1,0 +1,66 @@
+{
+  "servers": [
+    {
+      "id": "ollama_primary",
+      "name": "Primary Ollama Server",
+      "host": "localhost",
+      "port": 11434,
+      "protocol": "http",
+      "enabled": true,
+      "max_connections": 10,
+      "timeout_ms": 30000,
+      "retry_attempts": 3,
+      "health_check_interval": 30,
+      "models": [
+        "llama3:latest",
+        "phi3:latest", 
+        "mistral:latest",
+        "gemma:latest",
+        "qwen2:latest",
+        "deepseek-coder:latest"
+      ],
+      "load_balancer": {
+        "strategy": "round_robin",
+        "weight": 100,
+        "max_requests_per_second": 50
+      }
+    },
+    {
+      "id": "ollama_secondary",
+      "name": "Secondary Ollama Server",
+      "host": "localhost",
+      "port": 11435,
+      "protocol": "http",
+      "enabled": false,
+      "max_connections": 5,
+      "timeout_ms": 30000,
+      "retry_attempts": 2,
+      "health_check_interval": 60,
+      "models": [
+        "llama3:latest",
+        "gemma:latest"
+      ],
+      "load_balancer": {
+        "strategy": "least_connections",
+        "weight": 50,
+        "max_requests_per_second": 25
+      }
+    }
+  ],
+  "cluster_settings": {
+    "auto_discovery": true,
+    "discovery_timeout": 5000,
+    "failover_enabled": true,
+    "circuit_breaker": {
+      "failure_threshold": 5,
+      "recovery_timeout": 30000,
+      "half_open_requests": 3
+    }
+  },
+  "performance": {
+    "connection_pool_size": 20,
+    "request_queue_size": 100,
+    "streaming_buffer_size": 8192,
+    "compression_enabled": true
+  }
+}

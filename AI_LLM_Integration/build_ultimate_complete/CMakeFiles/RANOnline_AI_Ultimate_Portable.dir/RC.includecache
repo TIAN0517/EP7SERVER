@@ -1,0 +1,10 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/build_ultimate_complete/ultimate_portable_resources.rc
+

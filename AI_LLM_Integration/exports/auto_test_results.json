@@ -1,0 +1,43 @@
+{
+  "test_session": "auto_four_dept_test",
+  "total_tests": 4,
+  "timestamp": "2025-06-14",
+  "results": [
+    {
+      "test_id": 1,
+      "test_type": "character_generation",
+      "academy": "鳳凰",
+      "department": "劍術",
+      "prompt": "你是《RAN Online》自動AI生成器。請根據三大學院（聖門、懸岩、鳳凰）與四大部門（劍術、弓術、格鬥、氣功）隨機產生3名鳳凰學院AI角色，每個角色須有：學院、部門、姓名（6字以內）、性格特徵、戰鬥風格、專屬台詞。輸出格式：JSON陣列。",
+      "timestamp": "2025-06-14",
+      "status": "generated"
+    },
+    {
+      "test_id": 2,
+      "test_type": "combat_tactics",
+      "academy": "聖門",
+      "department": "弓術",
+      "prompt": "你是弓術系AI，隸屬聖門學院。當前戰況：敵方有5名不同職業的玩家，地形為山地高低起伏。請制定專屬戰術，考慮你的職業特色和學院風格。",
+      "timestamp": "2025-06-14",
+      "status": "generated"
+    },
+    {
+      "test_id": 3,
+      "test_type": "pk_interaction",
+      "academy": "聖門",
+      "department": "格鬥",
+      "prompt": "你是聖門/格鬥AI，在PK中遇到敵方挑釁：「你們聖門學院的格鬥系都很弱！根本不是我們的對手！」請用充滿個性的繁體中文嗆聲回應。",
+      "timestamp": "2025-06-14",
+      "status": "generated"
+    },
+    {
+      "test_id": 4,
+      "test_type": "skill_automation",
+      "academy": "聖門",
+      "department": "弓術",
+      "prompt": "你是AI弓術師，當前狀況：友方劍術系HP剩20%且被石化，弓術系MP耗盡，格鬥系正在與敵方纏鬥，敵方法師正在吟唱大招。請選擇最適合的技能並說明原因。",
+      "timestamp": "2025-06-14",
+      "status": "generated"
+    }
+  ]
+}

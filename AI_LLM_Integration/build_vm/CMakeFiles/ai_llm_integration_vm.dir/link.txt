@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\ai_llm_integration_vm.dir/objects.a
+C:\Qt\Tools\mingw1310_64\bin\ar.exe qc CMakeFiles\ai_llm_integration_vm.dir/objects.a @CMakeFiles\ai_llm_integration_vm.dir\objects1.rsp
+C:\Qt\Tools\mingw1310_64\bin\c++.exe -DQT_NO_OPENGL_ES_2 -DQT_OPENGL_SOFTWARE -Wall -Wextra -O3 -DQT_NO_OPENGL_ES_2 -DQT_OPENGL_SOFTWARE -static-libgcc -static-libstdc++ -O3 -DNDEBUG -O3 -DNDEBUG  -static-libgcc -static-libstdc++ -mwindows -Wl,--whole-archive CMakeFiles\ai_llm_integration_vm.dir/objects.a -Wl,--no-whole-archive -o ai_llm_integration_vm.exe -Wl,--out-implib,libai_llm_integration_vm.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\ai_llm_integration_vm.dir\linkLibs.rsp

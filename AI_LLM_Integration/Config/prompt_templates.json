@@ -1,0 +1,177 @@
+{
+  "templates": {
+    "skill_generation": {
+      "id": "skill_gen",
+      "name": "技能生成模板",
+      "description": "為遊戲角色生成技能描述和效果",
+      "academy": "通用",
+      "preferred_models": ["deepseek-coder", "qwen2", "llama3"],
+      "template": "你是一個遊戲技能設計師。為 {academy} 系的 {level} 級角色創建一個新技能。\n\n角色信息：\n- 職業：{class}\n- 等級：{level}\n- 專精：{specialization}\n\n請生成：\n1. 技能名稱\n2. 技能描述\n3. 技能效果\n4. 冷卻時間\n5. 消耗資源\n\n要求：符合 {academy} 系的特色，平衡性良好。",
+      "parameters": {
+        "academy": {
+          "type": "select",
+          "options": ["戰士", "法師", "弓手", "盜賊", "牧師"],
+          "default": "戰士"
+        },
+        "class": {
+          "type": "text",
+          "default": "劍士"
+        },
+        "level": {
+          "type": "number",
+          "min": 1,
+          "max": 999,
+          "default": 50
+        },
+        "specialization": {
+          "type": "text",
+          "default": "攻擊"
+        }
+      }
+    },
+    "npc_dialogue": {
+      "id": "npc_dialog",
+      "name": "NPC對話生成",
+      "description": "生成NPC的對話內容和互動邏輯",
+      "academy": "通用",
+      "preferred_models": ["llama3", "qwen2", "phi3"],
+      "template": "你是一個遊戲NPC設計師。為以下NPC創建對話內容：\n\nNPC信息：\n- 名稱：{npc_name}\n- 職業：{npc_role}\n- 性格：{personality}\n- 所在區域：{location}\n- 與玩家關係：{relationship}\n\n請生成：\n1. 初次見面對話\n2. 日常對話選項\n3. 任務相關對話\n4. 特殊事件對話\n\n要求：符合角色性格，對話自然流暢。",
+      "parameters": {
+        "npc_name": {
+          "type": "text",
+          "default": "商人艾倫"
+        },
+        "npc_role": {
+          "type": "select",
+          "options": ["商人", "守衛", "學者", "冒險者", "村民", "導師"],
+          "default": "商人"
+        },
+        "personality": {
+          "type": "select",
+          "options": ["友善", "嚴肅", "幽默", "神秘", "熱情", "冷漠"],
+          "default": "友善"
+        },
+        "location": {
+          "type": "text",
+          "default": "新手村"
+        },
+        "relationship": {
+          "type": "select",
+          "options": ["陌生", "熟悉", "友好", "敵對", "中立"],
+          "default": "中立"
+        }
+      }
+    },
+    "quest_design": {
+      "id": "quest_design",
+      "name": "任務設計模板",
+      "description": "設計遊戲任務的完整內容",
+      "academy": "通用",
+      "preferred_models": ["deepseek-coder", "llama3", "mistral"],
+      "template": "你是一個遊戲任務設計師。設計一個適合 {target_level} 級玩家的任務：\n\n任務設定：\n- 類型：{quest_type}\n- 難度：{difficulty}\n- 主題：{theme}\n- 區域：{area}\n\n請設計：\n1. 任務標題\n2. 任務背景故事\n3. 任務目標\n4. 任務步驟\n5. 獎勵內容\n6. 完成條件\n\n要求：內容豐富，難度適中，有趣有挑戰性。",
+      "parameters": {
+        "target_level": {
+          "type": "number",
+          "min": 1,
+          "max": 999,
+          "default": 30
+        },
+        "quest_type": {
+          "type": "select",
+          "options": ["主線", "支線", "日常", "週常", "活動", "隱藏"],
+          "default": "支線"
+        },
+        "difficulty": {
+          "type": "select",
+          "options": ["簡單", "普通", "困難", "極難", "史詩"],
+          "default": "普通"
+        },
+        "theme": {
+          "type": "select",
+          "options": ["戰鬥", "探索", "收集", "護送", "解謎", "社交"],
+          "default": "戰鬥"
+        },
+        "area": {
+          "type": "text",
+          "default": "森林地帶"
+        }
+      }
+    },
+    "item_description": {
+      "id": "item_desc",
+      "name": "物品描述生成",
+      "description": "生成遊戲物品的詳細描述",
+      "academy": "通用",
+      "preferred_models": ["qwen2", "gemma", "phi3"],
+      "template": "你是一個遊戲物品設計師。為以下物品創建描述：\n\n物品信息：\n- 名稱：{item_name}\n- 類型：{item_type}\n- 稀有度：{rarity}\n- 等級要求：{required_level}\n- 適用職業：{target_class}\n\n請生成：\n1. 物品外觀描述\n2. 屬性效果\n3. 背景故事\n4. 獲得方式\n5. 使用說明\n\n要求：描述生動，效果平衡。",
+      "parameters": {
+        "item_name": {
+          "type": "text",
+          "default": "烈焰之劍"
+        },
+        "item_type": {
+          "type": "select",
+          "options": ["武器", "防具", "飾品", "消耗品", "材料", "特殊"],
+          "default": "武器"
+        },
+        "rarity": {
+          "type": "select",
+          "options": ["普通", "優良", "稀有", "史詩", "傳說", "神話"],
+          "default": "稀有"
+        },
+        "required_level": {
+          "type": "number",
+          "min": 1,
+          "max": 999,
+          "default": 40
+        },
+        "target_class": {
+          "type": "select",
+          "options": ["全職業", "戰士", "法師", "弓手", "盜賊", "牧師"],
+          "default": "戰士"
+        }
+      }
+    },
+    "event_script": {
+      "id": "event_script",
+      "name": "事件腳本生成",
+      "description": "生成遊戲事件的腳本內容",
+      "academy": "通用",
+      "preferred_models": ["deepseek-coder", "llama3"],
+      "template": "你是一個遊戲事件設計師。設計一個遊戲事件：\n\n事件設定：\n- 事件名稱：{event_name}\n- 事件類型：{event_type}\n- 觸發條件：{trigger_condition}\n- 影響範圍：{scope}\n- 持續時間：{duration}\n\n請設計：\n1. 事件描述\n2. 觸發邏輯\n3. 事件效果\n4. 玩家選擇\n5. 結果分支\n6. 獎勵懲罰\n\n要求：邏輯清晰，選擇有意義。",
+      "parameters": {
+        "event_name": {
+          "type": "text",
+          "default": "神秘商人來訪"
+        },
+        "event_type": {
+          "type": "select",
+          "options": ["隨機事件", "節日活動", "世界事件", "個人事件", "公會事件"],
+          "default": "隨機事件"
+        },
+        "trigger_condition": {
+          "type": "text",
+          "default": "玩家等級達到20級"
+        },
+        "scope": {
+          "type": "select",
+          "options": ["個人", "隊伍", "公會", "伺服器", "全區"],
+          "default": "個人"
+        },
+        "duration": {
+          "type": "text",
+          "default": "30分鐘"
+        }
+      }
+    }
+  },
+  "global_settings": {
+    "max_response_length": 2048,
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "frequency_penalty": 0.1,
+    "presence_penalty": 0.1,
+    "stop_sequences": ["###", "---"],
+    "stream_responses": true
+  }
+}

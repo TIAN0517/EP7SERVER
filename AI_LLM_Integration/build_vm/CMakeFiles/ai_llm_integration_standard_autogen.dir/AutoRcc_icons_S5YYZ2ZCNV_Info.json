@@ -1,0 +1,36 @@
+{
+	"BUILD_DIR" : "C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/build_vm/ai_llm_integration_standard_autogen",
+	"CMAKE_BINARY_DIR" : "C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/build_vm",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/build_vm",
+	"CMAKE_CURRENT_SOURCE_DIR" : "C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration",
+	"CMAKE_SOURCE_DIR" : "C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration",
+	"CROSS_CONFIG" : false,
+	"GENERATOR" : "MinGW Makefiles",
+	"INCLUDE_DIR" : "C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/build_vm/ai_llm_integration_standard_autogen/include",
+	"INPUTS" : 
+	[
+		"C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/Resources/jy1.ico",
+		"C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/Resources/jy2.ico",
+		"C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/Resources/jy1.ico",
+		"C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/Resources/cyber_tech_style.qss",
+		"C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/Resources/jy6.ico",
+		"C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/Resources/jy3.ico",
+		"C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/Resources/jy5.ico",
+		"C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/Resources/jy6.ico",
+		"C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/Resources/jy5.ico",
+		"C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/Resources/jy1.ico",
+		"C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/Resources/jy2.ico",
+		"C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/Resources/jy3.ico"
+	],
+	"LOCK_FILE" : "C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/build_vm/CMakeFiles/ai_llm_integration_standard_autogen.dir/AutoRcc_icons_S5YYZ2ZCNV_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "--no-zstd", "-name", "icons" ],
+	"OUTPUT_CHECKSUM" : "S5YYZ2ZCNV",
+	"OUTPUT_NAME" : "qrc_icons.cpp",
+	"RCC_EXECUTABLE" : "C:/Qt/6.9.1/mingw_64/bin/rcc.exe",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/build_vm/CMakeFiles/ai_llm_integration_standard_autogen.dir/AutoRcc_icons_S5YYZ2ZCNV_Used.txt",
+	"SOURCE" : "C:/RanOnline_NewBuild/RANOnline_CPP_Ultimate/AI_LLM_Integration/Resources/icons.qrc",
+	"USE_BETTER_GRAPH" : true,
+	"VERBOSITY" : 0
+}

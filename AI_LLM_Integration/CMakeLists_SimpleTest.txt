@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 3.22)
+project(simple_test VERSION 1.0.0 LANGUAGES CXX)
+
+# 设置C++标准
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Qt6设置
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+# 查找Qt6
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
+
+# 编译器设置
+if(MSVC)
+    add_compile_options(/utf-8 /FS)
+endif()
+
+# 创建可执行文件
+add_executable(simple_test simple_test.cpp)
+
+# 链接库
+target_link_libraries(simple_test Qt6::Core Qt6::Widgets)
+
+# 设置输出目录
+set_target_properties(simple_test PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+)

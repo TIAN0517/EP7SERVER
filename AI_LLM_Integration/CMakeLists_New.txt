@@ -1,0 +1,94 @@
+cmake_minimum_required(VERSION 3.22)
+project(ai_llm_integration VERSION 1.0.0 LANGUAGES CXX)
+
+# 設置C++標準
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Qt6設置
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+# 查找Qt6
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets Network)
+
+# 條件性查找WebSockets
+find_package(Qt6WebSockets QUIET)
+if(Qt6WebSockets_FOUND)
+    message(STATUS "✅ Qt6WebSockets found, WebSocket features enabled")
+    set(HAVE_WEBSOCKETS ON)
+else()
+    message(WARNING "⚠️ Qt6WebSockets not found, WebSocket features will be disabled")
+    set(HAVE_WEBSOCKETS OFF)
+endif()
+
+# 編譯器特定設置
+if(MSVC)
+    add_compile_options(/utf-8 /Zc:__cplusplus /W3 /permissive-)
+    add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+endif()
+
+# 定義特性宏
+if(HAVE_WEBSOCKETS)
+    add_compile_definitions(HAVE_WEBSOCKETS)
+endif()
+
+# 源文件
+set(SOURCES
+    main_new.cpp
+    FramelessWindow.cpp
+    CyberProgressBar.cpp
+    LLMMainWindow.cpp
+    OllamaLLMManager.cpp
+)
+
+# 頭文件
+set(HEADERS
+    AcademyTheme.h
+    FramelessWindow.h
+    CyberProgressBar.h
+    LLMRequestItem.h
+    LLMMainWindow.h
+    OllamaLLMManager.h
+    LLMGUI_New.h
+)
+
+# 資源文件
+set(RESOURCES
+    Resources/resources.qrc
+)
+
+# 創建可執行文件
+add_executable(ai_llm_integration ${SOURCES} ${HEADERS} ${RESOURCES})
+
+# 鏈接庫
+target_link_libraries(ai_llm_integration 
+    Qt6::Core 
+    Qt6::Widgets 
+    Qt6::Network
+)
+
+# 條件性鏈接WebSockets
+if(HAVE_WEBSOCKETS)
+    target_link_libraries(ai_llm_integration Qt6::WebSockets)
+endif()
+
+# 輸出配置信息
+message(STATUS "")
+message(STATUS "🤖 AI LLM Integration Module Configuration")
+message(STATUS "============================================")
+message(STATUS "📋 Module Version: ${PROJECT_VERSION}")
+message(STATUS "🎯 Qt6 Version: ${Qt6_VERSION}")
+message(STATUS "🔧 Build Type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "📁 Source Directory: ${CMAKE_SOURCE_DIR}")
+message(STATUS "📦 Binary Directory: ${CMAKE_BINARY_DIR}")
+message(STATUS "🧪 Tests Enabled: ${BUILD_LLM_TESTS}")
+message(STATUS "🌍 Translation Support: Enabled")
+if(HAVE_WEBSOCKETS)
+    message(STATUS "🔌 WebSocket Support: Enabled")
+else()
+    message(STATUS "🔌 WebSocket Support: Disabled")
+endif()
+message(STATUS "============================================")
+message(STATUS "")

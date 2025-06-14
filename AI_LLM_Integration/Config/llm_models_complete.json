@@ -1,0 +1,129 @@
+{
+  "ollama_models": {
+    "gemma:latest": {
+      "name": "Gemma Latest",
+      "description": "Google 的 Gemma 模型，適合通用對話和任務",
+      "size": "5.0 GB",
+      "icon": ":/icons/gemma.png",
+      "academy_support": ["聖門", "懸岩", "鳳凰"],
+      "departments": ["劍術", "弓術", "格鬥", "氣功"],
+      "default_temperature": 0.7,
+      "max_tokens": 2048,
+      "streaming": true
+    },
+    "qwen2:latest": {
+      "name": "Qwen2 Latest", 
+      "description": "阿里巴巴的 Qwen2 模型，擅長中文理解和推理",
+      "size": "4.4 GB",
+      "icon": ":/icons/qwen2.png",
+      "academy_support": ["聖門", "懸岩", "鳳凰"],
+      "departments": ["劍術", "弓術", "格鬥", "氣功"],
+      "default_temperature": 0.8,
+      "max_tokens": 2048,
+      "streaming": true
+    },
+    "deepseek-coder:latest": {
+      "name": "DeepSeek Coder",
+      "description": "DeepSeek 編程專用模型，擅長代碼生成和技術問題",
+      "size": "776 MB",
+      "icon": ":/icons/deepseek.png",
+      "academy_support": ["聖門", "懸岩"],
+      "departments": ["劍術", "氣功"],
+      "default_temperature": 0.2,
+      "max_tokens": 4096,
+      "streaming": true
+    },
+    "mistral:latest": {
+      "name": "Mistral Latest",
+      "description": "Mistral AI 模型，平衡效能與準確性",
+      "size": "4.1 GB", 
+      "icon": ":/icons/mistral.png",
+      "academy_support": ["聖門", "懸岩", "鳳凰"],
+      "departments": ["劍術", "弓術", "格鬥", "氣功"],
+      "default_temperature": 0.7,
+      "max_tokens": 2048,
+      "streaming": true
+    },
+    "phi3:latest": {
+      "name": "Phi3 Latest",
+      "description": "Microsoft 的 Phi3 小型高效模型",
+      "size": "2.2 GB",
+      "icon": ":/icons/phi3.png", 
+      "academy_support": ["聖門", "懸岩", "鳳凰"],
+      "departments": ["劍術", "弓術", "格鬥", "氣功"],
+      "default_temperature": 0.6,
+      "max_tokens": 2048,
+      "streaming": true
+    },
+    "llama3:latest": {
+      "name": "LLaMA 3 Latest",
+      "description": "Meta 的 LLaMA 3 模型，強大的開源語言模型",
+      "size": "4.7 GB",
+      "icon": ":/icons/llama3.png",
+      "academy_support": ["聖門", "懸岩", "鳳凰"], 
+      "departments": ["劍術", "弓術", "格鬥", "氣功"],
+      "default_temperature": 0.7,
+      "max_tokens": 2048,
+      "streaming": true
+    }
+  },
+  "academy_themes": {
+    "聖門": {
+      "primary_color": "#00aaff",
+      "secondary_color": "#0066cc", 
+      "accent_color": "#66ccff",
+      "text_color": "#ffffff",
+      "gradient": "linear-gradient(45deg, #00aaff, #0066cc)"
+    },
+    "懸岩": {
+      "primary_color": "#ff6600",
+      "secondary_color": "#cc4400",
+      "accent_color": "#ff9966", 
+      "text_color": "#ffffff",
+      "gradient": "linear-gradient(45deg, #ff6600, #cc4400)"
+    },
+    "鳳凰": {
+      "primary_color": "#ff0066",
+      "secondary_color": "#cc0044",
+      "accent_color": "#ff6699",
+      "text_color": "#ffffff", 
+      "gradient": "linear-gradient(45deg, #ff0066, #cc0044)"
+    }
+  },
+  "departments": {
+    "劍術": {
+      "name": "劍術部",
+      "description": "近戰攻擊專精，講究精準與技巧",
+      "icon": ":/icons/sword.png",
+      "color": "#ffaa00"
+    },
+    "弓術": {
+      "name": "弓術部", 
+      "description": "遠程攻擊專精，講究準確與策略",
+      "icon": ":/icons/bow.png",
+      "color": "#00ff88"
+    },
+    "格鬥": {
+      "name": "格鬥部",
+      "description": "徒手格鬥專精，講究力量與速度", 
+      "icon": ":/icons/fist.png",
+      "color": "#ff4757"
+    },
+    "氣功": {
+      "name": "氣功部",
+      "description": "內功修煉專精，講究平衡與控制",
+      "icon": ":/icons/qi.png", 
+      "color": "#9c88ff"
+    }
+  },
+  "ui_settings": {
+    "language": "zh_TW",
+    "theme": "dark_tech",
+    "auto_refresh_models": true,
+    "default_academy": "聖門",
+    "default_department": "劍術",
+    "auto_connect_ollama": true,
+    "enable_tray_icon": true,
+    "enable_notifications": true
+  }
+}

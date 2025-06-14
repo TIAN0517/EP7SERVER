@@ -1,0 +1,6 @@
+RANOnline AI Simple - 極簡穩定VM兼容版 
+版本: 1.0.0 Simple Edition 
+構建日期: 週六 2025/06/14 14:41:37.55 
+開發團隊: Jy技術團隊 線上AI 
+Qt版本: 6.9.1 
+編譯器: MinGW 13.1.0 

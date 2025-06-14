@@ -1,0 +1,225 @@
+# ========================================================================
+# CMakeLists.txt for RANOnline AI Ultimate Portable Edition
+# Jy技術團隊 線上AI - 極簡穩定VM兼容版
+# Version: 4.0.0 Ultimate Portable Edition
+# ========================================================================
+
+cmake_minimum_required(VERSION 3.16)
+
+# 項目設置
+project(RANOnline_AI_Ultimate_Portable 
+    VERSION 4.0.0
+    DESCRIPTION "Jy Tech Team AI - Ultimate Portable VM Compatible Edition"
+    LANGUAGES CXX
+)
+
+# C++標準
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Windows特定設置
+if(WIN32)
+    # 設置Windows SDK版本
+    set(CMAKE_SYSTEM_VERSION 10.0)
+    
+    # 強制MSVC編譯器標誌，確保C++17標準支持
+    if(MSVC)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8 /Zc:__cplusplus /std:c++17")
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /O2 /DNDEBUG")
+        set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Od /DEBUG")
+        
+        # 禁用不必要的警告
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4996 /wd4251")
+    else()
+        # MinGW或其他編譯器
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+        set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
+    endif()
+    
+    # 設置Windows應用程式
+    set(CMAKE_WIN32_EXECUTABLE TRUE)
+endif()
+
+# Qt設置
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+# 尋找Qt6
+find_package(Qt6 REQUIRED COMPONENTS 
+    Core 
+    Widgets 
+    Gui
+    Network
+)
+
+# 檢查Qt6版本
+if(Qt6_VERSION VERSION_LESS "6.2.0")
+    message(WARNING "Qt version ${Qt6_VERSION} may not be fully compatible. Recommended Qt 6.2.0 or later.")
+endif()
+
+# 源文件
+set(SOURCES
+    main_ultimate_portable.cpp
+)
+
+# 如果main_ultimate_portable.cpp不存在，使用備用源文件
+if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/main_ultimate_portable.cpp")
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/main_vm_simple_complete.cpp")
+        set(SOURCES main_vm_simple_complete.cpp)
+        message(STATUS "使用備用源文件: main_vm_simple_complete.cpp")
+    else()
+        message(FATAL_ERROR "找不到源文件: main_ultimate_portable.cpp 或 main_vm_simple_complete.cpp")
+    endif()
+endif()
+
+# 頭文件
+set(HEADERS
+    # main_ultimate_portable.cpp 包含所有定義
+)
+
+# 創建可執行文件
+add_executable(${PROJECT_NAME} WIN32 ${SOURCES} ${HEADERS})
+
+# MSVC特定設置 - 強制C++17標準和__cplusplus宏
+if(MSVC)
+    target_compile_options(${PROJECT_NAME} PRIVATE
+        /Zc:__cplusplus  # 強制MSVC正確設置__cplusplus宏
+        /std:c++17       # 明確指定C++17標準
+        /permissive-     # 禁用不符合標準的擴展
+        /W3              # 警告級別3
+        /utf-8           # UTF-8編碼
+    )
+    
+    # 確保Release和Debug都有正確的設置
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
+        $<$<CONFIG:Debug>:_DEBUG>
+        $<$<CONFIG:Release>:NDEBUG>
+    )
+endif()
+
+# 鏈接Qt庫
+target_link_libraries(${PROJECT_NAME}
+    Qt6::Core
+    Qt6::Widgets
+    Qt6::Gui
+    Qt6::Network
+)
+
+# Windows特定鏈接庫
+if(WIN32)
+    target_link_libraries(${PROJECT_NAME}
+        psapi      # 用於進程和系統資訊
+        user32     # Windows API
+        gdi32      # 圖形設備接口
+        shell32    # Shell API
+        advapi32   # 高級API
+        ole32      # OLE API
+        oleaut32   # OLE自動化
+        uuid       # UUID庫
+        winmm      # Windows多媒體
+    )
+endif()
+
+# 編譯器特定設置
+target_compile_definitions(${PROJECT_NAME} PRIVATE
+    QT_DISABLE_DEPRECATED_BEFORE=0x060000
+    UNICODE
+    _UNICODE
+    $<$<CONFIG:Debug>:QT_DEBUG>
+    $<$<CONFIG:Release>:QT_NO_DEBUG>
+)
+
+# VM兼容性編譯選項
+target_compile_definitions(${PROJECT_NAME} PRIVATE
+    VM_COMPATIBLE_BUILD=1
+    FORCE_SOFTWARE_RENDERING=1
+    DISABLE_HARDWARE_ACCELERATION=1
+)
+
+# MSVC特定定義
+if(MSVC)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE
+        _CRT_SECURE_NO_WARNINGS
+        _SCL_SECURE_NO_WARNINGS
+        NOMINMAX
+        WIN32_LEAN_AND_MEAN
+    )
+endif()
+
+# 包含目錄
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+# 設置輸出目錄
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/build_ultimate_portable"
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_SOURCE_DIR}/build_ultimate_portable"
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}/build_ultimate_portable"
+)
+
+# 設置可執行文件名稱
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    OUTPUT_NAME "RANOnline_AI_Ultimate_Portable"
+)
+
+# Debug配置
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    DEBUG_POSTFIX "_debug"
+)
+
+# 安裝設置
+install(TARGETS ${PROJECT_NAME}
+    RUNTIME DESTINATION bin
+)
+
+# CPack設置用於創建安裝包
+include(CPack)
+set(CPACK_PACKAGE_NAME "RANOnline AI Ultimate Portable")
+set(CPACK_PACKAGE_VENDOR "Jy Tech Team")
+set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Ultimate Portable VM Compatible AI Assistant")
+
+# 自定義目標：部署
+if(WIN32)
+    # 查找windeployqt
+    get_target_property(QT6_QMAKE_EXECUTABLE Qt6::qmake IMPORTED_LOCATION)
+    get_filename_component(QT6_WINDEPLOYQT_EXECUTABLE ${QT6_QMAKE_EXECUTABLE} PATH)
+    set(QT6_WINDEPLOYQT_EXECUTABLE "${QT6_WINDEPLOYQT_EXECUTABLE}/windeployqt.exe")
+
+    # 添加部署目標
+    add_custom_target(deploy
+        COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_SOURCE_DIR}/build_ultimate_portable/bundle_ultimate"
+        COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:${PROJECT_NAME}>" "${CMAKE_CURRENT_SOURCE_DIR}/build_ultimate_portable/bundle_ultimate/"
+        COMMAND ${QT6_WINDEPLOYQT_EXECUTABLE} --no-translations --no-system-d3d-compiler --no-opengl-sw --no-webkit2 "${CMAKE_CURRENT_SOURCE_DIR}/build_ultimate_portable/bundle_ultimate/RANOnline_AI_Ultimate_Portable.exe"
+        DEPENDS ${PROJECT_NAME}
+        COMMENT "Deploying Qt libraries and creating portable bundle"
+    )
+
+    # 添加打包目標
+    add_custom_target(package_portable
+        COMMAND ${CMAKE_COMMAND} -E echo "Creating portable package..."
+        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/README_Ultimate.md" "${CMAKE_CURRENT_SOURCE_DIR}/build_ultimate_portable/bundle_ultimate/" || echo "README not found, skipping..."
+        COMMAND ${CMAKE_COMMAND} -E echo "Portable package created in build_ultimate_portable/bundle_ultimate/"
+        DEPENDS deploy
+        COMMENT "Creating final portable package"
+    )
+endif()
+
+# 顯示配置資訊
+message(STATUS "========================================")
+message(STATUS "RANOnline AI Ultimate Portable Edition")
+message(STATUS "========================================")
+message(STATUS "Project Name: ${PROJECT_NAME}")
+message(STATUS "Version: ${PROJECT_VERSION}")
+message(STATUS "Qt Version: ${Qt6_VERSION}")
+message(STATUS "C++ Standard: ${CMAKE_CXX_STANDARD}")
+message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "Output Directory: ${CMAKE_CURRENT_SOURCE_DIR}/build_ultimate_portable")
+message(STATUS "========================================")
+message(STATUS "Available Targets:")
+message(STATUS "  ${PROJECT_NAME}        - Build executable")
+message(STATUS "  deploy              - Deploy with Qt libraries")
+message(STATUS "  package_portable    - Create portable package")
+message(STATUS "========================================")

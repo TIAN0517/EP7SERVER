@@ -1,0 +1,263 @@
+/* ================================================
+   🎨 RANOnline EP7 AI System - Cyberpunk Theme
+   科技感界面样式 - 霓虹发光效果
+   ================================================ */
+
+/* 全局样式 */
+* {
+    font-family: "Consolas", "Monaco", "Lucida Console", monospace;
+    font-size: 12px;
+}
+
+QApplication {
+    background-color: #0a0a0a;
+}
+
+/* 主窗口 */
+QMainWindow {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    border: 2px solid #21262d;
+}
+
+/* 按钮样式 - 霓虹发光效果 */
+QPushButton {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #161b22, stop:1 #0d1117);
+    border: 2px solid #30363d;
+    border-radius: 8px;
+    color: #58a6ff;
+    padding: 8px 16px;
+    font-weight: bold;
+    min-height: 20px;
+}
+
+QPushButton:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #21262d, stop:1 #161b22);
+    border: 2px solid #58a6ff;
+    color: #79c0ff;
+    box-shadow: 0 0 10px #58a6ff;
+}
+
+QPushButton:pressed {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #0d1117, stop:1 #21262d);
+    border: 2px solid #1f6feb;
+    color: #58a6ff;
+}
+
+QPushButton:disabled {
+    background: #21262d;
+    border: 2px solid #30363d;
+    color: #6e7681;
+}
+
+/* 特殊按钮 - 成功/危险样式 */
+QPushButton[class="success"] {
+    border: 2px solid #238636;
+    color: #3fb950;
+}
+
+QPushButton[class="success"]:hover {
+    border: 2px solid #3fb950;
+    box-shadow: 0 0 10px #3fb950;
+    color: #56d364;
+}
+
+QPushButton[class="danger"] {
+    border: 2px solid #da3633;
+    color: #f85149;
+}
+
+QPushButton[class="danger"]:hover {
+    border: 2px solid #f85149;
+    box-shadow: 0 0 10px #f85149;
+    color: #ff7b72;
+}
+
+/* 输入框样式 */
+QLineEdit, QTextEdit, QPlainTextEdit {
+    background-color: #0d1117;
+    border: 2px solid #30363d;
+    border-radius: 6px;
+    color: #c9d1d9;
+    padding: 8px;
+    selection-background-color: #1f6feb;
+}
+
+QLineEdit:focus, QTextEdit:focus, QPlainTextEdit:focus {
+    border: 2px solid #58a6ff;
+    box-shadow: 0 0 5px #58a6ff;
+}
+
+/* 滑块样式 */
+QSlider::groove:horizontal {
+    border: 1px solid #30363d;
+    height: 8px;
+    background: #0d1117;
+    border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                                stop:0 #58a6ff, stop:1 #1f6feb);
+    border: 2px solid #30363d;
+    width: 18px;
+    height: 18px;
+    border-radius: 10px;
+    margin: -5px 0;
+}
+
+QSlider::handle:horizontal:hover {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                                stop:0 #79c0ff, stop:1 #58a6ff);
+    box-shadow: 0 0 8px #58a6ff;
+}
+
+QSlider::sub-page:horizontal {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                                stop:0 #58a6ff, stop:1 #1f6feb);
+    border-radius: 4px;
+}
+
+/* 进度条样式 */
+QProgressBar {
+    border: 2px solid #30363d;
+    border-radius: 8px;
+    background-color: #0d1117;
+    text-align: center;
+    color: #c9d1d9;
+    font-weight: bold;
+}
+
+QProgressBar::chunk {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                                stop:0 #58a6ff, stop:0.5 #1f6feb, stop:1 #58a6ff);
+    border-radius: 6px;
+    margin: 2px;
+}
+
+/* 表格样式 */
+QTableWidget, QTableView {
+    background-color: #0d1117;
+    border: 2px solid #30363d;
+    border-radius: 8px;
+    color: #c9d1d9;
+    gridline-color: #21262d;
+    selection-background-color: #1f6feb;
+}
+
+QTableWidget::item, QTableView::item {
+    padding: 8px;
+    border-bottom: 1px solid #21262d;
+}
+
+QTableWidget::item:selected, QTableView::item:selected {
+    background-color: #1f6feb;
+    color: #ffffff;
+}
+
+QHeaderView::section {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                stop:0 #21262d, stop:1 #161b22);
+    color: #58a6ff;
+    padding: 8px;
+    border: 1px solid #30363d;
+    font-weight: bold;
+}
+
+/* 标签样式 */
+QLabel {
+    color: #c9d1d9;
+    background: transparent;
+}
+
+QLabel[class="title"] {
+    font-size: 18px;
+    font-weight: bold;
+    color: #58a6ff;
+    text-shadow: 0 0 10px #58a6ff;
+}
+
+QLabel[class="subtitle"] {
+    font-size: 14px;
+    font-weight: bold;
+    color: #79c0ff;
+}
+
+QLabel[class="success"] {
+    color: #3fb950;
+}
+
+QLabel[class="warning"] {
+    color: #d29922;
+}
+
+QLabel[class="danger"] {
+    color: #f85149;
+}
+
+/* 分组框样式 */
+QGroupBox {
+    background-color: #0d1117;
+    border: 2px solid #30363d;
+    border-radius: 8px;
+    color: #c9d1d9;
+    font-weight: bold;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 10px;
+    padding: 0 8px 0 8px;
+    color: #58a6ff;
+    background-color: #0d1117;
+}
+
+/* 滚动条样式 */
+QScrollBar:vertical {
+    background-color: #0d1117;
+    width: 12px;
+    border-radius: 6px;
+    margin: 0;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #30363d;
+    border-radius: 6px;
+    min-height: 20px;
+    margin: 2px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: #58a6ff;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0;
+    width: 0;
+}
+
+/* 特殊效果 - 发光边框 */
+.glow-border {
+    border: 2px solid #58a6ff;
+    box-shadow: 0 0 15px #58a6ff;
+}
+
+.glow-border-success {
+    border: 2px solid #3fb950;
+    box-shadow: 0 0 15px #3fb950;
+}
+
+.glow-border-warning {
+    border: 2px solid #d29922;
+    box-shadow: 0 0 15px #d29922;
+}
+
+.glow-border-danger {
+    border: 2px solid #f85149;
+    box-shadow: 0 0 15px #f85149;
+}

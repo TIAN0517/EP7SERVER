@@ -1,0 +1,248 @@
+cmake_minimum_required(VERSION 3.22)
+project(ai_llm_integration VERSION 1.0.0 LANGUAGES CXX)
+
+# 設置C++標準
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# 靜態鏈接選項
+option(BUILD_PORTABLE "Build portable application with static linking" ON)
+option(DEPLOY_QT "Deploy Qt libraries automatically" ON)
+
+# 便攜式構建設置
+if(BUILD_PORTABLE)
+    if(MSVC)
+        set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MT")
+    elseif(MINGW)
+        # MinGW靜態鏈接設置
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -static")
+    endif()
+    add_compile_definitions(STATIC_QT_BUILD)
+    message(STATUS "🚀 Building portable application with static linking")
+endif()
+
+# Qt6設置
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+# 查找Qt6
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets Network)
+
+# 條件性查找WebSockets
+find_package(Qt6WebSockets QUIET)
+if(Qt6WebSockets_FOUND)
+    message(STATUS "✅ Qt6WebSockets found, WebSocket features enabled")
+    set(HAVE_WEBSOCKETS ON)
+else()
+    message(WARNING "⚠️ Qt6WebSockets not found, WebSocket features will be disabled")
+    set(HAVE_WEBSOCKETS OFF)
+endif()
+
+# 查找其他可能需要的Qt模块
+find_package(Qt6 QUIET COMPONENTS Concurrent Gui)
+if(Qt6Concurrent_FOUND)
+    message(STATUS "✅ Qt6Concurrent found")
+endif()
+if(Qt6Gui_FOUND)
+    message(STATUS "✅ Qt6Gui found")
+endif()
+
+# 編譯器特定設置
+if(MSVC)
+    add_compile_options(/utf-8 /Zc:__cplusplus /W3 /permissive- /FS)
+    add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+endif()
+
+# 定義特性宏
+if(HAVE_WEBSOCKETS)
+    add_compile_definitions(HAVE_WEBSOCKETS)
+endif()
+
+# 源文件
+set(SOURCES
+    main.cpp
+    FramelessWindow.cpp
+    CyberProgressBar.cpp
+    LLMMainWindow.cpp
+    LLMRequestItem_New.cpp
+    OllamaLLMManager_Fixed.cpp
+    
+    # AI管控系統模組
+    AIPlayerGenerator.cpp
+    AIDecisionEngine.cpp
+    AIManagementWidget.cpp
+)
+
+# 頭文件
+set(HEADERS
+    AcademyTheme.h
+    FramelessWindow.h
+    CyberProgressBar.h
+    LLMRequestItem_New.h
+    LLMMainWindow.h
+    OllamaLLMManager.h
+    
+    # AI管控系統模組
+    AIPlayerGenerator.h
+    AIDecisionEngine.h
+    AIManagementWidget.h
+)
+
+# 創建可執行文件
+add_executable(ai_llm_integration ${SOURCES} ${HEADERS})
+
+# 設置編譯選項
+target_compile_options(ai_llm_integration PRIVATE 
+    $<$<CXX_COMPILER_ID:MSVC>:/FS>
+)
+
+# 鏈接庫
+target_link_libraries(ai_llm_integration 
+    Qt6::Core 
+    Qt6::Widgets 
+    Qt6::Network
+)
+
+# 便攜式構建設置
+if(BUILD_PORTABLE)
+    # 設置靜態鏈接標志
+    set_target_properties(ai_llm_integration PROPERTIES
+        WIN32_EXECUTABLE TRUE
+    )
+    
+    # MinGW額外的靜態庫鏈接
+    if(MINGW)
+        target_link_libraries(ai_llm_integration 
+            ws2_32 winmm imm32 version
+        )
+    endif()
+    
+    message(STATUS "🔗 Static linking configured for portable build")
+endif()
+
+# 條件性鏈接額外模組
+if(Qt6Concurrent_FOUND)
+    target_link_libraries(ai_llm_integration Qt6::Concurrent)
+    message(STATUS "✅ Linking Qt6::Concurrent")
+endif()
+
+if(Qt6Gui_FOUND)
+    target_link_libraries(ai_llm_integration Qt6::Gui)
+    message(STATUS "✅ Linking Qt6::Gui")
+endif()
+
+# 條件性鏈接WebSockets
+if(HAVE_WEBSOCKETS)
+    target_link_libraries(ai_llm_integration Qt6::WebSockets)
+    message(STATUS "✅ Linking Qt6::WebSockets")
+endif()
+
+# 輸出配置信息
+message(STATUS "")
+message(STATUS "🤖 AI LLM Integration Module Configuration")
+message(STATUS "============================================")
+message(STATUS "📋 Module Version: ${PROJECT_VERSION}")
+message(STATUS "🎯 Qt6 Version: ${Qt6_VERSION}")
+message(STATUS "🔧 Build Type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "📁 Source Directory: ${CMAKE_SOURCE_DIR}")
+message(STATUS "📦 Binary Directory: ${CMAKE_BINARY_DIR}")
+message(STATUS "🌍 Translation Support: Enabled")
+if(HAVE_WEBSOCKETS)
+    message(STATUS "🔌 WebSocket Support: Enabled")
+else()
+    message(STATUS "🔌 WebSocket Support: Disabled")
+endif()
+message(STATUS "============================================")
+message(STATUS "")
+
+# 創建演示程序 - 暫時移除WebSocket依賴
+# add_executable(game_ai_demo
+#     GameAIDemo.cpp
+#     GameAIProtocol.cpp
+#     GameWebSocketClient.cpp
+#     GameWebSocketServer.cpp
+# )
+
+# target_link_libraries(game_ai_demo
+#     Qt6::Core
+#     Qt6::Network
+# )
+
+# 條件性鏈接WebSockets到演示程序
+if(HAVE_WEBSOCKETS)
+    target_link_libraries(game_ai_demo Qt6::WebSockets)
+    message(STATUS "✅ Demo program will include WebSocket support")
+else()
+    message(STATUS "⚠️ Demo program will run with limited functionality")
+endif()
+
+# 輸出演示程序信息
+message(STATUS "")
+message(STATUS "🎮 Game AI Demo Program Configuration")
+message(STATUS "======================================")
+message(STATUS "📋 Demo executable: game_ai_demo")
+message(STATUS "🔌 WebSocket Demo: ${HAVE_WEBSOCKETS}")
+message(STATUS "======================================")
+
+# 部署配置
+if(DEPLOY_QT AND WIN32)
+    # 查找windeployqt工具
+    find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS ${QT_INSTALL_PATH}/bin)
+    
+    if(WINDEPLOYQT_EXECUTABLE)
+        message(STATUS "🚀 Found windeployqt: ${WINDEPLOYQT_EXECUTABLE}")
+        
+        # 創建部署目錄
+        set(DEPLOY_DIR "${CMAKE_BINARY_DIR}/deploy")
+        
+        # 部署命令
+        add_custom_target(deploy
+            COMMAND ${CMAKE_COMMAND} -E make_directory ${DEPLOY_DIR}
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ai_llm_integration> ${DEPLOY_DIR}/
+            COMMAND ${WINDEPLOYQT_EXECUTABLE} --qmldir ${CMAKE_SOURCE_DIR} --release --no-translations --no-system-d3d-compiler --no-opengl-sw ${DEPLOY_DIR}/ai_llm_integration.exe
+            DEPENDS ai_llm_integration
+            COMMENT "🚀 Deploying Qt libraries for portable distribution"
+        )
+        
+        # 創建便攜式打包
+        add_custom_target(portable
+            COMMAND ${CMAKE_COMMAND} -E make_directory ${DEPLOY_DIR}/portable
+            COMMAND ${CMAKE_COMMAND} -E copy_directory ${DEPLOY_DIR} ${DEPLOY_DIR}/portable
+            COMMAND ${CMAKE_COMMAND} -E remove ${DEPLOY_DIR}/portable/ai_llm_integration.exe
+            COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:ai_llm_integration> ${DEPLOY_DIR}/portable/
+            DEPENDS deploy
+            COMMENT "📦 Creating portable application package"
+        )
+        
+        message(STATUS "✅ Deployment targets configured: 'deploy' and 'portable'")
+    else()
+        message(WARNING "⚠️ windeployqt not found, deployment targets disabled")
+    endif()
+endif()
+
+# 安裝規則
+install(TARGETS ai_llm_integration
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)
+
+# 最終配置輸出
+message(STATUS "")
+message(STATUS "🎯 Build Configuration Summary")
+message(STATUS "===============================")
+message(STATUS "📦 Portable Build: ${BUILD_PORTABLE}")
+message(STATUS "🚀 Auto Deploy: ${DEPLOY_QT}")
+message(STATUS "🎮 Target: ai_llm_integration.exe")
+message(STATUS "===============================")
+message(STATUS "")
+message(STATUS "💡 Usage:")
+message(STATUS "   make ai_llm_integration  - Build application")
+if(DEPLOY_QT)
+    message(STATUS "   make deploy             - Deploy Qt dependencies")
+    message(STATUS "   make portable           - Create portable package")
+endif()
+message(STATUS "")

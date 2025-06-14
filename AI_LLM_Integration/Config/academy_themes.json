@@ -1,0 +1,175 @@
+{
+  "themes": {
+    "cyber_blue": {
+      "name": "賽博藍",
+      "description": "高科技賽博朋克風格",
+      "colors": {
+        "primary": "#00BFFF",
+        "secondary": "#1E90FF",
+        "accent": "#00CED1",
+        "background": "#0A0A0A",
+        "surface": "#1A1A1A", 
+        "text_primary": "#FFFFFF",
+        "text_secondary": "#B0C4DE",
+        "success": "#00FF7F",
+        "warning": "#FFD700",
+        "error": "#FF4500",
+        "glow": "#00BFFF"
+      },
+      "effects": {
+        "glow_radius": 15,
+        "pulse_speed": 2000,
+        "border_width": 2,
+        "opacity": 0.9
+      }
+    },
+    "neon_green": {
+      "name": "霓虹綠",
+      "description": "駭客帝國風格綠色主題",
+      "colors": {
+        "primary": "#00FF41",
+        "secondary": "#32CD32",
+        "accent": "#7FFF00",
+        "background": "#000000",
+        "surface": "#0D1B0D",
+        "text_primary": "#00FF41",
+        "text_secondary": "#90EE90",
+        "success": "#00FF00",
+        "warning": "#FFFF00",
+        "error": "#FF0000",
+        "glow": "#00FF41"
+      },
+      "effects": {
+        "glow_radius": 20,
+        "pulse_speed": 1500,
+        "border_width": 1,
+        "opacity": 0.95
+      }
+    },
+    "purple_haze": {
+      "name": "紫霧幻境",
+      "description": "神秘紫色科幻主題",
+      "colors": {
+        "primary": "#9932CC",
+        "secondary": "#8A2BE2",
+        "accent": "#DA70D6",
+        "background": "#0F0F0F",
+        "surface": "#1C0E1C",
+        "text_primary": "#E6E6FA",
+        "text_secondary": "#DDA0DD",
+        "success": "#9370DB",
+        "warning": "#FFB6C1",
+        "error": "#DC143C",
+        "glow": "#9932CC"
+      },
+      "effects": {
+        "glow_radius": 18,
+        "pulse_speed": 2500,
+        "border_width": 2,
+        "opacity": 0.88
+      }
+    },
+    "red_alert": {
+      "name": "紅色警戒",
+      "description": "高危險警戒主題",
+      "colors": {
+        "primary": "#FF0000",
+        "secondary": "#DC143C",
+        "accent": "#FF6347",
+        "background": "#0A0000",
+        "surface": "#1A0606",
+        "text_primary": "#FFFFFF",
+        "text_secondary": "#FFB6C1",
+        "success": "#FF4500",
+        "warning": "#FFA500",
+        "error": "#8B0000",
+        "glow": "#FF0000"
+      },
+      "effects": {
+        "glow_radius": 25,
+        "pulse_speed": 1000,
+        "border_width": 3,
+        "opacity": 0.92
+      }
+    },
+    "golden_glow": {
+      "name": "黃金榮耀",
+      "description": "豪華金色主題",
+      "colors": {
+        "primary": "#FFD700",
+        "secondary": "#FFA500",
+        "accent": "#FFFF00",
+        "background": "#0F0A00",
+        "surface": "#1F1606",
+        "text_primary": "#FFFACD",
+        "text_secondary": "#F0E68C",
+        "success": "#ADFF2F",
+        "warning": "#FF8C00",
+        "error": "#FF4500",
+        "glow": "#FFD700"
+      },
+      "effects": {
+        "glow_radius": 12,
+        "pulse_speed": 3000,
+        "border_width": 2,
+        "opacity": 0.85
+      }
+    }
+  },
+  "academies": {
+    "warrior": {
+      "name": "戰士",
+      "english_name": "Warrior",
+      "icon": "academy_warrior.png",
+      "primary_color": "#FF4500",
+      "secondary_color": "#DC143C",
+      "glow_color": "#FF6347",
+      "description": "勇猛的近戰戰士，以力量和防禦見長"
+    },
+    "mage": {
+      "name": "法師", 
+      "english_name": "Mage",
+      "icon": "academy_mage.png",
+      "primary_color": "#4169E1",
+      "secondary_color": "#0000FF",
+      "glow_color": "#6495ED",
+      "description": "掌握神秘魔法的智者，擅長遠程攻擊"
+    },
+    "archer": {
+      "name": "弓手",
+      "english_name": "Archer", 
+      "icon": "academy_archer.png",
+      "primary_color": "#228B22",
+      "secondary_color": "#006400",
+      "glow_color": "#32CD32",
+      "description": "精準的遠程射手，速度與技巧並重"
+    },
+    "thief": {
+      "name": "盜賊",
+      "english_name": "Thief",
+      "icon": "academy_thief.png", 
+      "primary_color": "#8B008B",
+      "secondary_color": "#4B0082",
+      "glow_color": "#9932CC",
+      "description": "敏捷的暗影行者，擅長偷襲和潛行"
+    },
+    "priest": {
+      "name": "牧師",
+      "english_name": "Priest",
+      "icon": "academy_priest.png",
+      "primary_color": "#FFD700",
+      "secondary_color": "#FFA500",
+      "glow_color": "#FFFF00", 
+      "description": "神聖的治療者，提供支援和恢復"
+    }
+  },
+  "ui_settings": {
+    "animation_duration": 300,
+    "fade_duration": 200,
+    "glow_animation_duration": 1500,
+    "hover_scale": 1.05,
+    "border_radius": 8,
+    "shadow_blur": 20,
+    "gradient_stops": [0.0, 0.5, 1.0]
+  }
+}

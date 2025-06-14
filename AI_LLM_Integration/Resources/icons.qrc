@@ -1,0 +1,29 @@
+<RCC>
+    <qresource prefix="/icons">
+        <!-- Jy技術團隊圖標資源 -->
+        <file>jy1.ico</file>  <!-- 主圖標 -->
+        <file>jy2.ico</file>  <!-- 伺服器圖標 -->
+        <file>jy3.ico</file>  <!-- 客戶端圖標 -->
+        <file>jy5.ico</file>  <!-- 錯誤報告圖標 -->
+        <file>jy6.ico</file>  <!-- 額外圖標 -->
+    </qresource>
+    
+    <qresource prefix="/logo">
+        <!-- Logo作為應用程式標識 -->
+        <file alias="jy_tech_team.ico">jy1.ico</file>
+        <file alias="app_icon.ico">jy1.ico</file>
+        <file alias="taskbar_icon.ico">jy2.ico</file>
+    </qresource>
+    
+    <qresource prefix="/ui">
+        <!-- UI元素圖標 -->
+        <file alias="client.ico">jy3.ico</file>
+        <file alias="error.ico">jy5.ico</file>
+        <file alias="status.ico">jy6.ico</file>
+    </qresource>
+    
+    <qresource prefix="/Resources">
+        <!-- 樣式表和其他資源 -->
+        <file>cyber_tech_style.qss</file>
+    </qresource>
+</RCC>
